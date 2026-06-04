@@ -8,8 +8,7 @@ A fully responsive, modern quiz game built with **Vanilla HTML, CSS, and JavaScr
 
 ```
 PreTech-endProject/
-├── pages/
-│   └── index.html              # Single-page HTML — all 4 screens
+├── index.html                     # Single-page HTML — all 4 screens (moved to root for GitHub Pages)
 ├── logic/
 │   ├── globals.js              # QuizApp — shared state object
 │   ├── storage.js              # localStorage save/load/clear
@@ -355,6 +354,6 @@ This creates a filled arc proportional to the user's score — 3/10 correct = 10
 
 ## 🚀 How to Run
 
-Simply open `pages/index.html` in any modern browser (Chrome, Firefox, Edge, Safari).
+Simply open `index.html` in any modern browser (Chrome, Firefox, Edge, Safari).
 
 No build tools, no bundlers, no `npm install` — just pure vanilla HTML/CSS/JS.
