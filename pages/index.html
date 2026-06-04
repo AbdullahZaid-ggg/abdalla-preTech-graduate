@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Game</title>
+  <link rel="stylesheet" href="../style/main.css" />
+  <link rel="stylesheet" href="../style/layout.css" />
+  <link rel="stylesheet" href="../style/components.css" />
+  <link rel="stylesheet" href="../style/responsive.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Header -->
+    <header class="site-header">
+      <span class="logo">💻 AbdAlla Zaid Random Questions ⌨️</span>
+    </header>
+
+    <!-- Body: Sidebar + Main -->
+    <div class="body-layout">
+      <!-- Left Sidebar Nav -->
+      <aside class="sidebar">
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-action="welcome">🏠 Home</button>
+          <div class="nav-divider"></div>
+          <button class="nav-item" data-action="local">📚 From Local</button>
+          <button class="nav-item" data-action="api">🌍 From API</button>
+        </nav>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="main-area">
+        <div class="main-content">
+
+          <!-- Welcome Screen -->
+          <div id="welcome-screen" class="screen-main">
+            <div class="card" style="text-align:center;">
+              <h1 class="game-title">Quiz Game</h1>
+              <p class="subtitle">Test your web development & programming knowledge!</p>
+              <p style="color:rgba(255,255,255,0.4);font-size:0.9rem;margin-top:8px;">
+                🧪 Pick a question source from the sidebar to begin.
+              </p>
+              <div id="resume-banner" class="hidden" style="margin-top:18px;padding:12px;background:rgba(99,102,241,0.15);border-radius:12px;border:1px solid rgba(99,102,241,0.3);">
+                <p style="font-size:0.9rem;color:#a5b4fc;">You have a saved quiz in progress.</p>
+                <button class="btn btn-primary" style="margin-top:10px;" onclick="resumeQuiz()">⏯ Continue Quiz</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Source Screen (Start New / Continue) -->
+          <div id="source-screen" class="screen-main hidden">
+            <div class="card">
+              <div class="source-info">
+                <h2 id="source-label">📚 Local Questions</h2>
+                <p id="source-count">10 questions loaded</p>
+              </div>
+              <div class="source-actions">
+                <button id="start-new-btn" class="btn btn-primary">▶ Start</button>
+                <button id="continue-btn" class="btn btn-outline">⏯ Continue</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Screen -->
+          <div id="quiz-screen" class="screen-main hidden">
+            <div class="card">
+              <div class="quiz-header">
+                <div class="progress-container">
+                  <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <div class="quiz-meta">
+                  <span id="question-counter" class="question-counter">Page 1 / 10</span>
+                  <span id="score-display" class="score-display">Score: 0</span>
+                </div>
+              </div>
+              <div class="quiz-body">
+                <div id="page-indicators" class="page-indicators"></div>
+                <div class="quiz-content">
+                  <p id="question-text" class="question-text">Loading...</p>
+                  <div id="options-container" class="options-container"></div>
+                  <div class="nav-buttons">
+                    <button id="prev-btn" class="btn-nav" disabled>← Back</button>
+                    <button id="next-btn" class="btn btn-primary" style="flex:1;">Next →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Screen -->
+          <div id="results-screen" class="screen-main hidden">
+            <div class="card results-card">
+              <h2 class="results-title">Quiz Complete!</h2>
+              <div id="score-circle" class="score-circle">
+                <span id="final-score" class="final-score">0 / 10</span>
+              </div>
+              <p id="result-message" class="result-message">Great job!</p>
+              <button id="play-again-btn" class="btn btn-primary" style="width:100%;">🏠 Back Home</button>
+              <button id="change-source-btn" class="btn btn-outline" style="width:100%;margin-top:10px;">🔄 Choose Different Source</button>
+              <div class="analysis-section">
+                <h3>Answer Analysis</h3>
+                <div id="analysis-list" class="analysis-list"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>&copy; 2026 AbdAlla Zaid. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../logic/globals.js"></script>
+  <script src="../logic/storage.js"></script>
+  <script src="../logic/questions.js"></script>
+  <script src="../logic/quiz.js"></script>
+  <script src="../logic/navigation.js"></script>
+  <script src="../logic/main.js"></script>
+</body>
+</html>

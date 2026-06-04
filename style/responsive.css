@@ -1,0 +1,101 @@
+@media (max-width: 768px) {
+  .sidebar {
+    width: 140px;
+    padding: 16px 10px;
+  }
+
+  .main-area {
+    padding: 20px 16px 80px;
+  }
+
+  .card {
+    padding: 24px 18px;
+  }
+
+  .game-title {
+    font-size: 2rem;
+  }
+
+  .question-text {
+    font-size: 1.1rem;
+  }
+
+  .page-dot {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
+  }
+
+  .analysis-answer {
+    max-width: 120px;
+  }
+
+  .quiz-body {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .page-indicators {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 550px) {
+  .body-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 12px 16px;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .sidebar-nav .nav-item {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    width: auto;
+  }
+
+  .sidebar-nav .nav-divider {
+    display: none;
+  }
+
+  .main-area {
+    padding: 16px 12px 80px;
+  }
+
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .score-circle::before {
+    width: 96px;
+    height: 96px;
+  }
+
+  .final-score {
+    font-size: 1.4rem;
+  }
+
+  .analysis-row {
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .analysis-answer {
+    max-width: 100%;
+    text-align: left;
+  }
+}
