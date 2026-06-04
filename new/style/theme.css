@@ -1,0 +1,87 @@
+:root {
+  --md-primary: #00e5ff;
+  --md-on-primary: #003640;
+  --md-primary-container: #004d5e;
+  --md-on-primary-container: #97f0ff;
+  --md-secondary: #ff00e5;
+  --md-on-secondary: #3a0035;
+  --md-secondary-container: #5c0055;
+  --md-on-secondary-container: #ffaaf5;
+  --md-tertiary: #00e676;
+  --md-on-tertiary: #00391b;
+  --md-tertiary-container: #00522a;
+  --md-on-tertiary-container: #88f7b8;
+  --md-error: #ff4444;
+  --md-on-error: #601410;
+  --md-surface: #0a0a1f;
+  --md-surface-dim: #0a0a1f;
+  --md-surface-bright: #262640;
+  --md-on-surface: #e6e1e5;
+  --md-on-surface-variant: #c4c4d0;
+  --md-surface-container: #12122a;
+  --md-surface-container-high: #1c1c36;
+  --md-surface-container-highest: #262640;
+  --md-outline: #8e8e9e;
+  --md-outline-variant: #44445e;
+  --elevation-1: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --elevation-2: 0 2px 6px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --elevation-3: 0 4px 8px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
+  --elevation-4: 0 6px 12px rgba(0,0,0,0.4), 0 3px 6px rgba(0,0,0,0.3);
+  --shape-xs: 4px;
+  --shape-sm: 8px;
+  --shape-md: 12px;
+  --shape-lg: 16px;
+  --shape-xl: 28px;
+  --shape-full: 50%;
+  --font-display: 'Google Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Segoe UI', system-ui, sans-serif;
+  --glow-primary: 0 0 20px rgba(0,229,255,0.35), 0 0 40px rgba(0,229,255,0.12);
+  --glow-secondary: 0 0 20px rgba(255,0,229,0.35), 0 0 40px rgba(255,0,229,0.12);
+  --glow-tertiary: 0 0 20px rgba(0,230,118,0.35), 0 0 40px rgba(0,230,118,0.12);
+  --glow-error: 0 0 20px rgba(255,68,68,0.35);
+  --grid-color: rgba(0,229,255,0.035);
+  --grid-size: 60px;
+  --motion: 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  min-height: 100vh;
+  background: var(--md-surface);
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  color: var(--md-on-surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes fillBar {
+  from { width: 0%; }
+}
+
+.hidden { display: none !important; }
+.screen-main { width: 100%; }

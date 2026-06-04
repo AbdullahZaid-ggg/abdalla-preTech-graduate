@@ -3,5 +3,7 @@ const QuizApp = {
   currentQuestionIndex: 0,
   score: 0,
   userAnswers: [],
-  isApiMode: false
-};
+  isApiMode: false,
+  timerRemaining: CONFIG.TIMER_DURATION,
+  timerInterval: null,
+}

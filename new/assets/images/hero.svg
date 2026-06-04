@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#1a1a4e" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0a0a1f" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5ff"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#ff00e5"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowStrong">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="400" height="300" rx="24" fill="url(#bgGlow)"/>
+  <g opacity="0.04">
+    <line x1="0" y1="75" x2="400" y2="75" stroke="#00e5ff" stroke-width="0.5"/>
+    <line x1="0" y1="150" x2="400" y2="150" stroke="#00e5ff" stroke-width="0.5"/>
+    <line x1="0" y1="225" x2="400" y2="225" stroke="#00e5ff" stroke-width="0.5"/>
+    <line x1="100" y1="0" x2="100" y2="300" stroke="#00e5ff" stroke-width="0.5"/>
+    <line x1="200" y1="0" x2="200" y2="300" stroke="#00e5ff" stroke-width="0.5"/>
+    <line x1="300" y1="0" x2="300" y2="300" stroke="#00e5ff" stroke-width="0.5"/>
+  </g>
+  <path d="M200 55 C255 55 295 95 295 150 C295 205 255 245 200 245 C145 245 105 205 105 150 C105 95 145 55 200 55Z"
+        fill="none" stroke="url(#accent)" stroke-width="2" filter="url(#glow)" opacity="0.3"/>
+  <path d="M200 75 C242 75 272 105 272 150 C272 195 242 225 200 225 C158 225 128 195 128 150 C128 105 158 75 200 75Z"
+        fill="none" stroke="url(#accent)" stroke-width="1.5" filter="url(#glow)"/>
+  <path d="M165 140 Q180 120 200 125 Q220 130 235 140" fill="none" stroke="#ff00e5" stroke-width="1.5" opacity="0.5" filter="url(#glow)"/>
+  <path d="M170 160 Q185 145 200 150 Q215 155 230 160" fill="none" stroke="#00e676" stroke-width="1.5" opacity="0.4" filter="url(#glow)"/>
+  <circle cx="200" cy="160" r="18" fill="none" stroke="#00e5ff" stroke-width="2" filter="url(#glowStrong)"/>
+  <text x="200" y="169" text-anchor="middle" fill="#00e5ff" font-size="28" font-weight="900" font-family="Arial" filter="url(#glowStrong)">?</text>
+  <g opacity="0.6">
+    <circle cx="110" cy="100" r="2" fill="#00e5ff">
+      <animate attributeName="opacity" values="0.6;0.1;0.6" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="90" r="2.5" fill="#ff00e5">
+      <animate attributeName="opacity" values="0.6;0.1;0.6" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="130" cy="210" r="1.5" fill="#00e676">
+      <animate attributeName="opacity" values="0.6;0.1;0.6" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="280" cy="200" r="2" fill="#00e5ff">
+      <animate attributeName="opacity" values="0.6;0.1;0.6" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="335" cy="145" r="1.5" fill="#ff00e5">
+      <animate attributeName="opacity" values="0.5;0.1;0.5" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="65" cy="155" r="1.5" fill="#00e5ff">
+      <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
