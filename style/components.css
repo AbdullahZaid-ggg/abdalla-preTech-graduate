@@ -1859,3 +1859,24 @@
   color: var(--md-error);
   font-weight: 600;
 }
+
+/* ========== QUESTION SETS ========== */
+
+.set-name-input:focus {
+  border-color: var(--md-primary) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.set-card:hover .btn-text {
+  opacity: 1 !important;
+}
+
+.question-form input:focus,
+.question-form select:focus {
+  border-color: var(--md-primary) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.12);
+}
+
+.question-form select {
+  cursor: pointer;
+}

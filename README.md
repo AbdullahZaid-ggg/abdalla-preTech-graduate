@@ -14,7 +14,7 @@
 
 ## Features
 
-- **108 Local Questions** across 13 categories (Science, IT, Math, General, History, Geography, Nature, Sports, Music, Movies & TV, Food & Health, Space, Art & Literature)
+- **108 Local Questions** across 13 categories (Science, IT, Math, General, History, Geography, Nature, Sports, Movies & TV, Food & Health, Space, Art & Literature)
 - **API Quizzes** — Fetch fresh questions from [Open Trivia Database](https://opentdb.com) with custom settings
 - **3 Difficulty Levels** — Easy, Medium, Hard per category
 - **Dark / Light Mode** — Theme toggle persisted to localStorage

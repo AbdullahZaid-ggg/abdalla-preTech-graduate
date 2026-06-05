@@ -66,6 +66,10 @@ export default function HomeScreen() {
                 <svg viewBox="0 0 18 18" width="18" height="18"><path d="M2 3h6v6H2zm0 8h6v4H2zm8-8h6v6h-6zm0 8h6v4h-6z" fill="currentColor"/></svg>
                 <span>Choose Category</span>
               </button>
+              <button className="btn btn-outline" onClick={() => navigate('/sets')}>
+                <svg viewBox="0 0 18 18" width="18" height="18"><path d="M4 4a2 2 0 012-2h6a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M7 7h4M7 10h4M7 13h2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none"/></svg>
+                <span>My Sets</span>
+              </button>
               <button className="btn btn-outline" disabled={apiLoading} onClick={async () => {
                 setApiLoading(true)
                 try {

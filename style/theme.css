@@ -149,7 +149,12 @@ body {
   border-top: 1px solid rgba(0, 104, 119, 0.06);
 }
 [data-theme="light"] .site-footer p,
-[data-theme="light"] .keyboard-hint {
+[data-theme="light"] .keyboard-hint,
+[data-theme="light"] .footer-tagline {
+  color: rgba(0, 0, 0, 0.3);
+}
+[data-theme="light"] .footer-icon-link,
+[data-theme="light"] .footer-top-btn {
   color: rgba(0, 0, 0, 0.3);
 }
 [data-theme="light"] .hamburger,

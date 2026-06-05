@@ -6,6 +6,7 @@ import { setMuted } from '../utils/sound'
 const tabs = [
   { path: '/', label: 'Home', svg: '<svg viewBox="0 0 20 20" width="18" height="18"><path d="M3 10L10 3l7 7v7h-5v-5H8v5H3z" fill="currentColor"/></svg>' },
   { path: '/history', label: 'History', svg: '<svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 3h12v2H4zm0 4h12v2H4zm0 4h8v2H4zm0 4h12v2H4z" fill="currentColor"/></svg>' },
+  { path: '/sets', label: 'My Sets', svg: '<svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 8h4M8 11h4M8 14h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>' },
   { path: '/about', label: 'About', svg: '<svg viewBox="0 0 20 20" width="18" height="18"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M10 8v5m0-7v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>' },
   { path: '/contact', label: 'Contact', svg: '<svg viewBox="0 0 20 20" width="18" height="18"><rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M2 6l8 5 8-5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>' },
 ]
