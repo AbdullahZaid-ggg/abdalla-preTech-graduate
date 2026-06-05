@@ -1,49 +1,157 @@
 @media (max-width: 768px) {
-  .nav-inner { padding: 0 16px; }
+  .screen-main { width: 100%; max-width: 100%; padding: 0 12px; }
+  .nav-inner { padding: 0 12px; }
   .nav-tabs { display: none; }
   .hamburger { display: flex; }
-  .main-area { padding: 0 16px 80px; }
-  .main-content { padding-top: 0; }
-  .hero-section { flex-direction: column; text-align: center; }
-  .hero-visual { max-width: 220px; }
+  .main-area { padding: 0 0 72px; }
+  .hero-section { flex-direction: column; text-align: center; gap: 20px; }
+  .hero-visual { max-width: 180px; }
+  .hero-title { font-size: 2.2rem; }
+  .hero-sub { font-size: 0.95rem; }
   .hero-actions { justify-content: center; }
-  .quiz-bar { flex-direction: column; gap: 12px; }
+  .hero-actions .btn { padding: 10px 18px; font-size: 0.88rem; }
+  .quiz-wrapper { border-radius: var(--shape-lg); }
+  .quiz-bar { flex-direction: column; gap: 8px; padding: 12px 16px; }
   .quiz-bar-left { width: 100%; }
   .quiz-bar-right { width: 100%; justify-content: space-between; }
-  .q-footer { flex-direction: column; gap: 16px; }
+  .quiz-stage { padding: 20px 16px 16px; }
+  .q-text { font-size: 1.05rem; margin-bottom: 16px; padding-bottom: 14px; }
+  .q-options { gap: 8px; }
+  .option-btn { padding: 12px 14px; font-size: 0.88rem; }
+  .q-footer { flex-direction: column; gap: 12px; }
   .q-nav { width: 100%; }
   .q-nav .btn { flex: 1; }
-  .history-body { grid-template-columns: 1fr; }
-  .stat-row { gap: 8px; }
-  .stat-card { padding: 12px; }
-  .results-hero { padding: 32px 20px; }
-  .results-trophy { max-width: 120px; }
-  .analysis-answer { max-width: 120px; }
-  .source-card { padding: 32px 20px; }
+  .history-body { grid-template-columns: 1fr; gap: 16px; }
+  .history-primary, .history-secondary { padding: 14px; }
+  .stat-row { gap: 6px; }
+  .stat-card { padding: 10px; }
+  .stat-value { font-size: 1.1rem; }
+  .results-hero { padding: 24px 16px; }
+  .results-trophy { max-width: 100px; }
+  .results-title { font-size: 1.5rem; }
+  .results-actions { flex-direction: column; }
+  .results-actions .btn { width: 100%; }
+  .analysis-answer { max-width: 100px; }
+  .source-card { padding: 28px 16px; margin: 40px 12px; }
+  .page-card-header { padding: 24px 20px 12px; }
+  .page-card-header h2 { font-size: 1.3rem; }
+  .page-card-body { padding: 0 20px 20px; }
+  .contact-page-body { padding: 0 20px 20px; }
+  .home-stats-section { margin-top: 20px; }
+  .home-stats-title { font-size: 0.95rem; margin-bottom: 10px; }
+  .home-stats { gap: 8px; }
+  .home-stat { padding: 14px 10px; gap: 2px; }
+  .home-stat-icon { width: 22px; height: 22px; }
+  .home-stat-val { font-size: 1.3rem; }
+  .home-stat-label { font-size: 0.72rem; }
+  .home-empty-state { padding: 20px 16px; margin-top: 16px; }
+  .q-dots { gap: 4px; }
+  .page-dot { width: 28px; height: 28px; font-size: 0.7rem; }
+  .diff-picker-card { padding: 24px 20px; }
+  .resume-banner { flex-wrap: wrap; justify-content: center; text-align: center; }
+  .site-footer { padding: 8px 16px; }
+  .site-footer p { font-size: 0.68rem; }
+  .keyboard-hint span { display: none; }
 }
 
 @media (max-width: 550px) {
-  .nav-tabs { gap: 0; }
-  .nav-tab { padding: 8px 10px; }
-  .nav-brand span { display: inline; }
-  .main-content { padding-top: 0; }
-  .hero-visual { max-width: 180px; }
-  .hero-title { font-size: 2rem; }
+  .screen-main { padding: 0 8px; }
+  .nav-inner { padding: 0 10px; }
+  .nav-brand span { display: none; }
+  .nav-brand img { width: 24px; height: 24px; }
+  .hero-visual { max-width: 140px; }
+  .hero-title { font-size: 1.7rem; }
+  .hero-sub { font-size: 0.85rem; margin-bottom: 16px; }
   .hero-actions { flex-direction: column; }
-  .hero-actions .btn { width: 100%; }
-  .q-options { gap: 8px; }
-  .option-btn { padding: 12px 14px; font-size: 0.88rem; }
-  .results-score-ring { width: 120px; height: 120px; }
-  .results-score-ring::before { width: 96px; height: 96px; }
-  .results-score-val { font-size: 1.4rem; }
-  .analysis-row { flex-wrap: wrap; font-size: 0.8rem; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .hero-actions .btn-outline { order: 2; }
+  .q-counter { font-size: 0.75rem; }
+  .q-text { font-size: 0.95rem; }
+  .option-btn { padding: 10px 12px; font-size: 0.82rem; }
+  .progress-track { min-width: 50px; }
+  .q-score { font-size: 0.78rem; }
+  .q-timer { font-size: 0.78rem; }
+  .radial-timer { width: 34px; height: 34px; }
+  .radial-timer svg { width: 30px; height: 30px; }
+  .rt-time { font-size: 0.55rem; }
+  .results-score-ring { width: 100px; height: 100px; }
+  .results-score-ring::before { width: 80px; height: 80px; }
+  .results-score-val { font-size: 1.2rem; }
+  .results-title { font-size: 1.2rem; }
+  .results-msg { font-size: 0.9rem; }
+  .results-analysis { padding: 16px; }
+  .analysis-row { flex-wrap: wrap; font-size: 0.78rem; gap: 6px; }
   .analysis-answer { max-width: 100%; text-align: left; }
-  .detail-q-opts { font-size: 0.8rem; }
-  .detail-row { padding: 10px; }
-  .detail-score-bar { flex-direction: column; gap: 4px; }
+  .analysis-question { font-size: 0.82rem; }
+  .detail-q-opts { font-size: 0.78rem; }
+  .detail-row { padding: 8px; }
+  .detail-card { padding: 16px; }
+  .detail-score-bar { flex-direction: column; gap: 4px; padding: 12px; }
   .history-cat { display: none; }
   .history-diff { display: none; }
-  .cat-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
-  .cat-card { padding: 14px 8px; }
-  .cat-icon { font-size: 1.6rem; }
+  .history-source { width: 36px; font-size: 0.65rem; }
+  .history-row { font-size: 0.78rem; padding: 6px 8px; }
+  .cat-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 6px; }
+  .cat-card { padding: 12px 6px; gap: 4px; }
+  .cat-icon { font-size: 1.3rem; }
+  .cat-name { font-size: 0.78rem; }
+  .cat-count { font-size: 0.68rem; }
+  .page-card-header h2 { font-size: 1.1rem; }
+  .diff-picker-card { padding: 20px 16px; }
+  .diff-picker-card h3 { font-size: 1.1rem; }
+  .diff-btn { padding: 10px 14px; }
+  .home-stats { gap: 6px; }
+  .home-stat { padding: 10px 8px; }
+  .home-stat-icon { width: 18px; height: 18px; }
+  .home-stat-val { font-size: 1rem; }
+  .home-stat-label { font-size: 0.65rem; }
+  .home-empty-title { font-size: 0.95rem; }
+  .home-empty-sub { font-size: 0.78rem; }
+  .q-nav .btn { font-size: 0.82rem; padding: 8px 14px; }
+  .page-dot { width: 24px; height: 24px; font-size: 0.65rem; }
+  .q-dots { gap: 3px; }
+  .btn { padding: 10px 18px; font-size: 0.85rem; }
+  .btn-sm { padding: 6px 12px; font-size: 0.78rem; }
+  .site-footer { padding: 6px 12px; }
+  .setting-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .setting-row select { width: 100%; min-width: 0; }
+  .comparison-grid { gap: 8px; }
+  .comparison-val { font-size: 1.1rem; }
+  .contact-info { grid-template-columns: 1fr; }
+  .toast { min-width: 0; width: 90vw; }
+}
+
+@media (min-width: 1400px) {
+  .screen-main { width: 85%; max-width: 1400px; }
+  .nav-inner { max-width: 1400px; }
+  .hero-visual { max-width: 300px; }
+  .hero-title { font-size: 3.5rem; }
+  .hero-sub { font-size: 1.3rem; }
+  .hero-actions { gap: 16px; }
+  .hero-actions .btn { padding: 16px 32px; font-size: 1.05rem; }
+  .quiz-wrapper { border-radius: var(--shape-xl); }
+  .quiz-stage { padding: 40px 32px 28px; }
+  .q-text { font-size: 1.5rem; }
+  .option-btn { padding: 18px 24px; font-size: 1rem; }
+  .cat-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .cat-card { padding: 28px 16px; }
+  .cat-icon { font-size: 2.4rem; }
+  .history-body { gap: 32px; }
+  .history-primary, .history-secondary { padding: 28px; }
+  .home-stats-section { margin-top: 36px; }
+  .home-stats-title { font-size: 1.3rem; margin-bottom: 18px; }
+  .home-stats { gap: 24px; }
+  .home-stat { padding: 28px 24px; }
+  .home-stat-icon { width: 36px; height: 36px; }
+  .home-stat-val { font-size: 2.2rem; }
+  .home-stat-label { font-size: 1rem; }
+  .results-hero { padding: 56px 32px; }
+  .results-trophy { max-width: 180px; }
+  .results-title { font-size: 2.5rem; }
+  .page-card-header { padding: 48px 40px 24px; }
+  .page-card-body { padding: 0 40px 40px; }
+  .contact-info { grid-template-columns: repeat(3, 1fr); }
+  .detail-list { gap: 14px; }
+  .q-dots { gap: 8px; }
+  .page-dot { width: 36px; height: 36px; font-size: 0.82rem; }
 }

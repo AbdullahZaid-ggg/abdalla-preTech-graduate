@@ -188,15 +188,22 @@ export function convertToTrueFalse(questions) {
   })
 }
 
-let apiLoading = false
+async function fetchWithTimeout(url, ms = 8000) {
+  const ctrl = new AbortController()
+  const id = setTimeout(() => ctrl.abort(), ms)
+  try {
+    const res = await fetch(url, { signal: ctrl.signal })
+    return res
+  } finally {
+    clearTimeout(id)
+  }
+}
 
-export async function loadApiQuestions(settings) {
-  if (apiLoading) return null
-  apiLoading = true
+export async function loadApiQuestions(settings, retries = 1) {
   try {
     let token = localStorage.getItem(CONFIG.TOKEN_KEY)
     if (!token) {
-      const res = await fetch('https://opentdb.com/api_token.php?command=request')
+      const res = await fetchWithTimeout('https://opentdb.com/api_token.php?command=request')
       const data = await res.json()
       if (data.response_code === 0 && data.token) {
         token = data.token
@@ -205,18 +212,24 @@ export async function loadApiQuestions(settings) {
     }
     const tokenParam = token ? `&token=${token}` : ''
     const url = `${CONFIG.API_BASE}?amount=${settings.amount}&category=${settings.category}&difficulty=${settings.difficulty}&type=multiple${tokenParam}`
-    const res = await fetch(url)
+    const res = await fetchWithTimeout(url)
     const data = await res.json()
-    if (data.response_code === 4 && token) {
-      await fetch(`https://opentdb.com/api_token.php?command=reset&token=${token}`)
+
+    if ((data.response_code === 3 || data.response_code === 4) && token) {
       localStorage.removeItem(CONFIG.TOKEN_KEY)
-      apiLoading = false
-      return loadApiQuestions(settings)
-    }
-    if (data.response_code !== 0 || !data.results.length) {
-      apiLoading = false
+      if (retries > 0) {
+        return loadApiQuestions(settings, retries - 1)
+      }
       return null
     }
+
+    if (data.response_code !== 0 || !data.results.length) {
+      return null
+    }
+
+    const first = data.results[0]
+    const category = first.category || 'General'
+    const difficulty = first.difficulty || 'medium'
     const questions = data.results.map(q => {
       const options = shuffleArray([...q.incorrect_answers, q.correct_answer]).map(decodeHTMLEntities)
       const decodedCorrect = decodeHTMLEntities(q.correct_answer)
@@ -224,13 +237,13 @@ export async function loadApiQuestions(settings) {
         question: decodeHTMLEntities(q.question),
         options,
         correct: options.indexOf(decodedCorrect),
+        category,
+        difficulty,
       }
     })
     if (settings.shuffle) shuffleArray(questions)
-    apiLoading = false
-    return questions
+    return { questions, category, difficulty }
   } catch {
-    apiLoading = false
     return null
   }
 }

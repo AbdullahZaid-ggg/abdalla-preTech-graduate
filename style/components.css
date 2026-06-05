@@ -138,35 +138,71 @@
   font-size: 0.8rem;
 }
 
-/* Home stats */
+/* Home stats section */
+.home-stats-section {
+  margin-top: 28px;
+}
+
+.home-stats-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--md-on-surface);
+  margin-bottom: 14px;
+  font-family: var(--font-display);
+}
+
+.home-stats-title svg {
+  color: var(--md-primary);
+}
+
 .home-stats {
   display: flex;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 14px;
 }
 
 .home-stat {
   flex: 1;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--md-outline-variant);
-  border-radius: var(--shape-md);
-  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.06), rgba(0, 229, 255, 0.02));
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  border-radius: var(--shape-lg);
+  padding: 20px 16px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.home-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 229, 255, 0.08);
+}
+
+.home-stat-icon {
+  color: var(--md-primary);
+  margin-bottom: 2px;
+  opacity: 0.7;
 }
 
 .home-stat-val {
   display: block;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-weight: 800;
   font-family: var(--font-display);
   color: var(--md-primary);
+  line-height: 1.1;
 }
 
 .home-stat-label {
   display: block;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--md-on-surface-variant);
   margin-top: 2px;
+  font-weight: 500;
 }
 
 /* Resume banner */
@@ -1145,6 +1181,107 @@
 
 #confetti-canvas {
   display: none;
+}
+
+/* ========== BUTTON SPINNER ========== */
+
+.btn-spinner {
+  animation: spin 0.7s linear infinite;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ========== HOME EMPTY STATE ========== */
+
+.home-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 28px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--md-outline-variant);
+  border-radius: var(--shape-lg);
+  text-align: center;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.home-empty-icon {
+  color: var(--md-on-surface-variant);
+  opacity: 0.5;
+  margin-bottom: 4px;
+}
+
+.home-empty-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--md-on-surface);
+}
+
+.home-empty-sub {
+  font-size: 0.85rem;
+  color: var(--md-on-surface-variant);
+  max-width: 280px;
+}
+
+/* ========== QUIZ TRANSITIONS ========== */
+
+.quiz-stage.exit-left {
+  animation: slideOutLeft 0.2s ease forwards;
+}
+
+.quiz-stage.exit-right {
+  animation: slideOutRight 0.2s ease forwards;
+}
+
+.quiz-stage.enter-right {
+  animation: slideInRight 0.3s ease forwards;
+}
+
+.quiz-stage.enter-left {
+  animation: slideInLeft 0.3s ease forwards;
+}
+
+@keyframes slideOutLeft {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-40px); }
+}
+
+@keyframes slideOutRight {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(40px); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ========== OPTION TAP FEEDBACK ========== */
+
+.option-btn.tapped {
+  animation: optionTap 0.2s ease;
+}
+
+@keyframes optionTap {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.option-btn:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 /* ========== FOOTER ADJUST ========== */

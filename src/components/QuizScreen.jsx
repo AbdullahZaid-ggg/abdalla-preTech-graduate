@@ -58,7 +58,7 @@ export default function QuizScreen() {
         }
         dispatch({ type: 'SHOW_RESULTS' })
       } else {
-        dispatch({ type: 'NEXT_QUESTION' })
+        animateTransition('next')
       }
     }, 800)
     return () => clearTimeout(t)
@@ -77,6 +77,8 @@ export default function QuizScreen() {
 
   function checkAnswer(index) {
     if (answered !== -1) return
+    setTappedIdx(index)
+    setTimeout(() => setTappedIdx(-1), 200)
     dispatch({ type: 'ANSWER_QUESTION', payload: { index } })
     const isCorrect = index === q.correct
     if (isCorrect) playCorrect()
@@ -95,6 +97,7 @@ export default function QuizScreen() {
   }
 
   function goNext() {
+    if (animState.active) return
     playClick()
     if (idx === total - 1) {
       clearState()
@@ -106,20 +109,37 @@ export default function QuizScreen() {
       }
       dispatch({ type: 'SHOW_RESULTS' })
     } else {
-      dispatch({ type: 'NEXT_QUESTION' })
+      animateTransition('next')
     }
   }
 
   function goPrev() {
+    if (animState.active) return
     playClick()
-    dispatch({ type: 'PREV_QUESTION' })
+    animateTransition('prev')
   }
 
   const questionRef = useRef(null)
+  const [animState, setAnimState] = useState({ active: false, dir: 'next' })
+  const [tappedIdx, setTappedIdx] = useState(-1)
 
   useEffect(() => {
     if (questionRef.current) questionRef.current.focus()
   }, [idx])
+
+  function animateTransition(dir) {
+    if (animState.active) return
+    setAnimState({ active: 'exit', dir })
+    setTimeout(() => {
+      if (dir === 'next') {
+        dispatch({ type: 'NEXT_QUESTION' })
+      } else {
+        dispatch({ type: 'PREV_QUESTION' })
+      }
+      setAnimState({ active: 'enter', dir })
+      setTimeout(() => setAnimState({ active: false, dir }), 300)
+    }, 200)
+  }
 
   if (!q) return null
 
@@ -171,7 +191,8 @@ export default function QuizScreen() {
             </button>
           </div>
         </div>
-        <div className="quiz-stage">
+        <div key={animState.active === 'enter' ? `q-enter-${idx}` : `q-${idx}`}
+             className={`quiz-stage${animState.active === 'exit' ? animState.dir === 'next' ? ' exit-left' : ' exit-right' : animState.active === 'enter' ? animState.dir === 'next' ? ' enter-right' : ' enter-left' : ''}`}>
           <p className="q-text" tabIndex={-1} ref={questionRef} role="heading" aria-level={2}>{q.question}</p>
           {state.questionMode === 'truefalse' && q.trueFalseStatement && (
             <p className="q-tf-statement" style={{
@@ -189,6 +210,7 @@ export default function QuizScreen() {
                 if (i === q.correct) cls += ' correct'
                 if (i === answered && answered !== q.correct) cls += ' wrong'
               }
+              if (tappedIdx === i) cls += ' tapped'
               return (
                 <button key={i} className={cls} onClick={() => checkAnswer(i)} disabled={answered !== -1}
                   aria-label={`Option ${i + 1}: ${opt.replace(/<[^>]*>/g, '')}`}>
@@ -209,10 +231,10 @@ export default function QuizScreen() {
               ))}
             </div>
             <div className="q-nav">
-              <button className="btn btn-nav" onClick={goPrev} disabled={idx === 0}>
+              <button className="btn btn-nav" onClick={goPrev} disabled={idx === 0 || animState.active}>
                 <svg viewBox="0 0 16 16" width="16" height="16"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg> Back
               </button>
-              <button className="btn btn-primary" onClick={goNext}>
+              <button className="btn btn-primary" id="next-btn" onClick={goNext} disabled={animState.active}>
                 {idx === total - 1 ? 'Finish Quiz' : 'Next'} <svg viewBox="0 0 16 16" width="16" height="16"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
             </div>
