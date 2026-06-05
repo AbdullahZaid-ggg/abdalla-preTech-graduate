@@ -1,6 +1,8 @@
 import { useQuiz } from '../context/QuizContext'
 
-export default function AboutScreen() {
+import { memo } from 'react'
+
+export default memo(function AboutScreen() {
   return (
     <section className="screen-main">
       <div className="page-card">
@@ -43,4 +45,4 @@ export default function AboutScreen() {
       </div>
     </section>
   )
-}
+})

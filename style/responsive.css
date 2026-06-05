@@ -3,7 +3,7 @@
   .nav-tabs { display: none; }
   .hamburger { display: flex; }
   .main-area { padding: 0 16px 80px; }
-  .main-content { padding-top: 28px; }
+  .main-content { padding-top: 0; }
   .hero-section { flex-direction: column; text-align: center; }
   .hero-visual { max-width: 220px; }
   .hero-actions { justify-content: center; }
@@ -26,7 +26,7 @@
   .nav-tabs { gap: 0; }
   .nav-tab { padding: 8px 10px; }
   .nav-brand span { display: inline; }
-  .main-content { padding-top: 20px; }
+  .main-content { padding-top: 0; }
   .hero-visual { max-width: 180px; }
   .hero-title { font-size: 2rem; }
   .hero-actions { flex-direction: column; }

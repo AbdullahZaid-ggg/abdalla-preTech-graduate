@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { useQuiz } from './context/QuizContext'
 import Navbar from './components/Navbar'
 import HomeScreen from './components/HomeScreen'
@@ -11,35 +12,46 @@ import ContactScreen from './components/ContactScreen'
 import ToastContainer from './components/ToastContainer'
 import { playClick } from './utils/sound'
 
-const screens = {
-  home: HomeScreen,
-  category: CategoryScreen,
-  quiz: QuizScreen,
-  results: ResultsScreen,
-  history: HistoryScreen,
-  about: AboutScreen,
-  contact: ContactScreen,
+const routeMap = {
+  '/': 'home',
+  '/category': 'category',
+  '/quiz': 'quiz',
+  '/results': 'results',
+  '/history': 'history',
+  '/about': 'about',
+  '/contact': 'contact',
 }
 
 export default function App() {
   const { state, dispatch } = useQuiz()
-  const [displayScreen, setDisplayScreen] = useState(state.screen)
-  const [phase, setPhase] = useState('enter')
-  const prevScreen = useRef(state.screen)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const currentRoute = routeMap[location.pathname] || 'home'
+  const prevRoute = useRef(currentRoute)
 
   useEffect(() => {
-    if (state.screen !== prevScreen.current) {
-      setPhase('exit')
-      const timer = setTimeout(() => {
-        setDisplayScreen(state.screen)
-        prevScreen.current = state.screen
-        setPhase('enter')
-      }, 200)
-      return () => clearTimeout(timer)
+    if (currentRoute !== prevRoute.current) {
+      prevRoute.current = currentRoute
+    }
+  }, [currentRoute])
+
+  const routeFromScreen = {
+    home: '/', category: '/category', quiz: '/quiz',
+    results: '/results', history: '/history', about: '/about', contact: '/contact',
+  }
+
+  useEffect(() => {
+    if (state.screen !== currentRoute) {
+      dispatch({ type: 'SET_SCREEN', payload: currentRoute })
+    }
+  }, [currentRoute])
+
+  useEffect(() => {
+    const target = routeFromScreen[state.screen]
+    if (target && target !== location.pathname) {
+      navigate(target)
     }
   }, [state.screen])
-
-  const Screen = screens[displayScreen] || HomeScreen
 
   useEffect(() => {
     function handleKey(e) {
@@ -68,11 +80,22 @@ export default function App() {
 
   return (
     <div className="app-wrapper">
+      <a href="#main-content" className="skip-link" style={{
+        position: 'absolute', top: '-100px', left: 0, zIndex: 9999,
+        padding: '8px 16px', background: 'var(--md-primary)', color: '#fff',
+        textDecoration: 'none', borderRadius: '0 0 4px 0'
+      }}>Skip to main content</a>
       <Navbar />
-      <main className="main-area">
-        <div className={`main-content page-transition ${phase}`}>
-          <Screen />
-        </div>
+      <main className="main-area" id="main-content" role="main">
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/category" element={<CategoryScreen />} />
+          <Route path="/quiz" element={<QuizScreen />} />
+          <Route path="/results" element={<ResultsScreen />} />
+          <Route path="/history" element={<HistoryScreen />} />
+          <Route path="/about" element={<AboutScreen />} />
+          <Route path="/contact" element={<ContactScreen />} />
+        </Routes>
       </main>
       <footer className="site-footer">
         <p>&copy; 2026 AbdAlla Zaid. All rights reserved.</p>

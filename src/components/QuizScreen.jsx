@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 import { playCorrect, playWrong, playComplete, playClick } from '../utils/sound'
 import { launchConfetti } from '../utils/confetti'
@@ -10,11 +11,16 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 
 export default function QuizScreen() {
   const { state, dispatch } = useQuiz()
+  const navigate = useNavigate()
   const q = state.quizQuestions[state.currentQuestionIndex]
   const total = state.quizQuestions.length
   const idx = state.currentQuestionIndex
   const answered = state.userAnswers[idx]
   const timeUp = useRef(false)
+
+  useEffect(() => {
+    timeUp.current = false
+  }, [state.quizQuestions])
 
   useEffect(() => {
     if (state.practiceMode) return
@@ -37,6 +43,26 @@ export default function QuizScreen() {
       dispatch({ type: 'SHOW_RESULTS' })
     }
   }, [state.timerRemaining])
+
+  useEffect(() => {
+    if (answered === -1) return
+    const t = setTimeout(() => {
+      playClick()
+      if (idx === total - 1) {
+        clearState()
+        const pct = Math.round((state.score / total) * 100)
+        saveQuizAttempt(state.score, total, state.isApiMode ? 'api' : 'local', state.quizQuestions, state.userAnswers, state.localCategory, state.localDifficulty)
+        if (pct >= 80) {
+          setTimeout(launchConfetti, 300)
+          setTimeout(playComplete, 300)
+        }
+        dispatch({ type: 'SHOW_RESULTS' })
+      } else {
+        dispatch({ type: 'NEXT_QUESTION' })
+      }
+    }, 800)
+    return () => clearTimeout(t)
+  }, [answered, idx])
 
   function saveStateFromQuiz(current) {
     saveState({
@@ -89,9 +115,15 @@ export default function QuizScreen() {
     dispatch({ type: 'PREV_QUESTION' })
   }
 
+  const questionRef = useRef(null)
+
+  useEffect(() => {
+    if (questionRef.current) questionRef.current.focus()
+  }, [idx])
+
   if (!q) return null
 
-  const diffIcons = { easy: '<circle cx="7" cy="7" r="5" fill="#00e676"/>', medium: '<circle cx="7" cy="7" r="5" fill="#ff9800"/>', hard: '<circle cx="7" cy="7" r="5" fill="#ff4444"/>' }
+  const diffIcons = useMemo(() => ({ easy: '<circle cx="7" cy="7" r="5" fill="#00e676"/>', medium: '<circle cx="7" cy="7" r="5" fill="#ff9800"/>', hard: '<circle cx="7" cy="7" r="5" fill="#ff4444"/>' }), [])
 
   return (
     <section className="screen-main">
@@ -99,7 +131,7 @@ export default function QuizScreen() {
         <div className="quiz-bg-decor"><img src="/assets/images/quiz-decoration.svg" alt="" /></div>
         <div className="quiz-bar">
           <div className="quiz-bar-left">
-            <span className="q-counter">Q {idx + 1} / {total}</span>
+            <span className="q-counter" aria-live="polite">Q {idx + 1} / {total}</span>
             {q.difficulty && (
               <span className={`diff-badge ${q.difficulty}`} dangerouslySetInnerHTML={{ __html: `${diffIcons[q.difficulty] || ''} ${q.difficulty}` }} />
             )}
@@ -134,13 +166,22 @@ export default function QuizScreen() {
               </span>
             )}
             <span className="q-score">Score: {state.score}</span>
-            <button className="btn btn-sm btn-text" onClick={() => dispatch({ type: 'SET_SCREEN', payload: 'home' })} title="Back to Home">
+            <button className="btn btn-sm btn-text" onClick={() => navigate('/')} title="Back to Home">
               <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/></svg>
             </button>
           </div>
         </div>
         <div className="quiz-stage">
-          <p className="q-text">{q.question}</p>
+          <p className="q-text" tabIndex={-1} ref={questionRef} role="heading" aria-level={2}>{q.question}</p>
+          {state.questionMode === 'truefalse' && q.trueFalseStatement && (
+            <p className="q-tf-statement" style={{
+              padding: '12px 16px', marginBottom: 16, borderRadius: 'var(--shape-sm)',
+              background: 'var(--md-surface-variant)', fontSize: '1.05rem',
+              borderLeft: '3px solid var(--md-primary)', textAlign: 'center'
+            }}>
+              "{q.trueFalseStatement}"
+            </p>
+          )}
           <div className="q-options">
             {q.options.map((opt, i) => {
               let cls = 'option-btn'
@@ -149,7 +190,8 @@ export default function QuizScreen() {
                 if (i === answered && answered !== q.correct) cls += ' wrong'
               }
               return (
-                <button key={i} className={cls} onClick={() => checkAnswer(i)} disabled={answered !== -1}>
+                <button key={i} className={cls} onClick={() => checkAnswer(i)} disabled={answered !== -1}
+                  aria-label={`Option ${i + 1}: ${opt.replace(/<[^>]*>/g, '')}`}>
                   {opt}
                 </button>
               )
@@ -160,7 +202,8 @@ export default function QuizScreen() {
               {state.quizQuestions.map((_, i) => (
                 <button key={i}
                   className={`page-dot${i === idx ? ' active' : ''}${state.userAnswers[i] !== -1 ? ' answered' : ''}`}
-                  onClick={() => { playClick(); dispatch({ type: 'GO_TO_QUESTION', payload: i }) }}>
+                  onClick={() => { playClick(); dispatch({ type: 'GO_TO_QUESTION', payload: i }) }}
+                  aria-label={`Go to question ${i + 1}`}>
                   {i + 1}
                 </button>
               ))}

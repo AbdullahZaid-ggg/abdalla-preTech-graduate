@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, memo } from 'react'
 import { useQuiz } from '../context/QuizContext'
 import { loadHistory, deleteQuizAttempt, clearAllHistory } from '../utils/storage'
 import { showToast } from './ToastContainer'
@@ -7,6 +7,8 @@ export default function HistoryScreen() {
   const { dispatch } = useQuiz()
   const [history, setHistory] = useState([])
   const [confirmClear, setConfirmClear] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [filterCategory, setFilterCategory] = useState('All')
 
   useEffect(() => { setHistory(loadHistory()) }, [])
 
@@ -25,15 +27,26 @@ export default function HistoryScreen() {
     refresh()
   }
 
-  const totalQuizzes = history.length
-  const avgPct = totalQuizzes ? Math.round(history.reduce((s, a) => s + a.percentage, 0) / totalQuizzes) : 0
-  const best = totalQuizzes ? Math.max(...history.map(a => a.percentage)) : 0
+  const categories = useMemo(() => [...new Set(history.map(a => a.category))], [history])
+  const filtered = useMemo(() => history.filter(a => {
+    const matchCategory = filterCategory === 'All' || a.category === filterCategory
+    const q = searchQuery.toLowerCase()
+    const matchSearch = !q || a.category?.toLowerCase().includes(q) || a.date?.includes(q) || a.source?.toLowerCase().includes(q)
+    return matchCategory && matchSearch
+  }), [history, filterCategory, searchQuery])
 
-  const groups = {}
-  history.forEach(a => {
-    if (!groups[a.date]) groups[a.date] = []
-    groups[a.date].push(a)
-  })
+  const totalQuizzes = filtered.length
+  const avgPct = totalQuizzes ? Math.round(filtered.reduce((s, a) => s + a.percentage, 0) / totalQuizzes) : 0
+  const best = totalQuizzes ? Math.max(...filtered.map(a => a.percentage)) : 0
+
+  const groups = useMemo(() => {
+    const g = {}
+    filtered.forEach(a => {
+      if (!g[a.date]) g[a.date] = []
+      g[a.date].push(a)
+    })
+    return g
+  }, [filtered])
   const sortedDates = Object.keys(groups).sort().reverse()
 
   return (
@@ -47,6 +60,35 @@ export default function HistoryScreen() {
           <p>Every attempt, every improvement</p>
         </div>
         <div className="page-card-body">
+          <div className="history-filters" style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+            <input
+              type="text"
+              className="history-search-input"
+              placeholder="Search history..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              aria-label="Search quiz history"
+              style={{
+                flex: 1, minWidth: 160, padding: '8px 12px', borderRadius: 'var(--shape-sm)',
+                border: '1px solid var(--md-outline-variant)', background: 'var(--md-surface-variant)',
+                color: 'var(--md-on-surface)', fontSize: '0.85rem'
+              }}
+            />
+            <select
+              className="history-cat-filter"
+              value={filterCategory}
+              onChange={e => setFilterCategory(e.target.value)}
+              aria-label="Filter by category"
+              style={{
+                padding: '8px 12px', borderRadius: 'var(--shape-sm)',
+                border: '1px solid var(--md-outline-variant)', background: 'var(--md-surface-variant)',
+                color: 'var(--md-on-surface)', fontSize: '0.85rem'
+              }}
+            >
+              <option value="All">All Categories</option>
+              {categories.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
           <div className="stat-row">
             <div className="stat-card"><span className="stat-value">{totalQuizzes}</span><span className="stat-label">Quizzes</span></div>
             <div className="stat-card"><span className="stat-value">{avgPct}%</span><span className="stat-label">Avg Score</span></div>
@@ -54,7 +96,19 @@ export default function HistoryScreen() {
           </div>
 
           {totalQuizzes > 0 && (
-            <div style={{ textAlign: 'right', marginBottom: 16 }}>
+            <div style={{ textAlign: 'right', marginBottom: 16, display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+              <button className="btn btn-sm btn-text" onClick={() => {
+                const data = JSON.stringify(history, null, 2)
+                const blob = new Blob([data], { type: 'application/json' })
+                const url = URL.createObjectURL(blob)
+                const a = document.createElement('a')
+                a.href = url; a.download = `quiz-history-${new Date().toISOString().slice(0, 10)}.json`
+                a.click(); URL.revokeObjectURL(url)
+                showToast(dispatch, 'History exported', 'success')
+              }}>
+                <svg viewBox="0 0 16 16" width="14" height="14" style={{ verticalAlign: -2 }}><path d="M8 2v8M5 7l3 3 3-3M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                Export JSON
+              </button>
               <button className="btn btn-sm btn-text" onClick={() => setConfirmClear(true)} style={{ color: 'var(--md-error)' }}>
                 <svg viewBox="0 0 16 16" width="14" height="14" style={{ verticalAlign: -2 }}><path d="M2 4h12M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M13 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V4" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round"/></svg>
                 Clear All
@@ -121,7 +175,7 @@ export default function HistoryScreen() {
   )
 }
 
-function ComparisonContent({ groups, sortedDates }) {
+const ComparisonContent = memo(function ComparisonContent({ groups, sortedDates }) {
   if (sortedDates.length === 0) return <p className="comparison-empty">Complete quizzes on multiple days to see comparisons.</p>
 
   const latest = groups[sortedDates[0]]
@@ -161,4 +215,4 @@ function ComparisonContent({ groups, sortedDates }) {
       </div>
     </div>
   )
-}
+})

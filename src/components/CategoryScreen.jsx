@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useQuiz } from '../context/QuizContext'
-import { CATEGORIES, getCategoryCount, getDifficultyCount, getTotalCount, loadLocalQuestions } from '../utils/questions'
+import { CATEGORIES, getCategoryCount, getDifficultyCount, getTotalCount, loadLocalQuestions, convertToTrueFalse } from '../utils/questions'
 
 export default function CategoryScreen() {
-  const { dispatch } = useQuiz()
+  const { state, dispatch } = useQuiz()
   const [pickedCat, setPickedCat] = useState(null)
   const [practiceMode, setPracticeMode] = useState(false)
 
@@ -13,7 +13,10 @@ export default function CategoryScreen() {
   }
 
   function pickDifficulty(diff) {
-    const { questions, category, difficulty } = loadLocalQuestions(pickedCat, diff)
+    let { questions, category, difficulty } = loadLocalQuestions(pickedCat, diff)
+    if (state.questionMode === 'truefalse') {
+      questions = convertToTrueFalse(questions)
+    }
     dispatch({ type: 'SET_PRACTICE_MODE', payload: practiceMode })
     dispatch({ type: 'LOAD_QUESTIONS', payload: { questions, isApiMode: false, category, difficulty } })
     dispatch({ type: 'START_QUIZ', payload: questions })
@@ -74,6 +77,13 @@ export default function CategoryScreen() {
                   <label>Practice Mode (no timer)</label>
                   <label className="switch">
                     <input type="checkbox" checked={practiceMode} onChange={e => setPracticeMode(e.target.checked)} />
+                    <span className="switch-slider" />
+                  </label>
+                </div>
+                <div className="setting-row" style={{ marginTop: 8, marginBottom: 0 }}>
+                  <label>True / False Mode</label>
+                  <label className="switch">
+                    <input type="checkbox" checked={state.questionMode === 'truefalse'} onChange={e => dispatch({ type: 'SET_QUESTION_MODE', payload: e.target.checked ? 'truefalse' : 'multiple' })} />
                     <span className="switch-slider" />
                   </label>
                 </div>

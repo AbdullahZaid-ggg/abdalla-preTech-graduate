@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 
 export default function ResultsScreen() {
   const { state, dispatch } = useQuiz()
+  const navigate = useNavigate()
   const total = state.quizQuestions.length
   const pct = total ? Math.round((state.score / total) * 100) : 0
 
@@ -27,7 +29,7 @@ export default function ResultsScreen() {
         </div>
         <p className="results-msg">{msg}</p>
         <div className="results-actions">
-          <button className="btn btn-primary btn-lg" onClick={() => dispatch({ type: 'SET_SCREEN', payload: 'home' })}>
+          <button className="btn btn-primary btn-lg" onClick={() => navigate('/')}>
             <svg viewBox="0 0 18 18" width="18" height="18"><path d="M2 9l7-6 7 6v7h-5v-5H9v5H4V9z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round"/></svg>
             <span>Back Home</span>
           </button>
@@ -35,7 +37,7 @@ export default function ResultsScreen() {
             <svg viewBox="0 0 18 18" width="18" height="18"><path d="M2 9a7 7 0 0113.3-3.5M16 9a7 7 0 01-13.3 3.5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/><path d="M16 2v4h-4M2 16v-4h4" fill="currentColor"/></svg>
             <span>Retry Quiz</span>
           </button>
-          <button className="btn btn-outline btn-lg" onClick={() => dispatch({ type: 'SET_SCREEN', payload: 'home' })}>
+          <button className="btn btn-outline btn-lg" onClick={() => navigate('/')}>
             <svg viewBox="0 0 18 18" width="18" height="18"><circle cx="9" cy="9" r="7" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M10 5v4l3 2" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round"/></svg>
             <span>New Quiz</span>
           </button>

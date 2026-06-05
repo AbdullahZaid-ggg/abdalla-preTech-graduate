@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 import { loadState } from '../utils/storage'
+import { showToast } from './ToastContainer'
 
 export default function HomeScreen() {
   const { state, dispatch } = useQuiz()
+  const navigate = useNavigate()
   const saved = loadState()
 
   return (
@@ -10,13 +13,13 @@ export default function HomeScreen() {
       <div className="hero-section">
         <div className="hero-visual">
           <img className="logo-dark" src="/assets/images/hero.svg" alt="Quiz Arena" />
-          <img className="logo-light" src="/assets/images/hero-light.svg" alt="Quiz Arena" style={{ display: 'none' }} />
+          <img className="logo-light" src="/assets/images/hero-light.svg" alt="Quiz Arena" />
         </div>
         <div className="hero-text">
           <h1 className="hero-title">Quiz Arena</h1>
           <p className="hero-sub">Test your knowledge. Track your growth.</p>
           <div className="hero-actions">
-            <button className="btn btn-primary" onClick={() => dispatch({ type: 'SET_SCREEN', payload: 'category' })}>
+            <button className="btn btn-primary" onClick={() => navigate('/category')}>
               <svg viewBox="0 0 18 18" width="18" height="18"><path d="M2 3h6v6H2zm0 8h6v4H2zm8-8h6v6h-6zm0 8h6v4h-6z" fill="currentColor"/></svg>
               <span>Choose Category</span>
             </button>
@@ -29,6 +32,8 @@ export default function HomeScreen() {
                 if (questions) {
                   dispatch({ type: 'LOAD_QUESTIONS', payload: { questions, isApiMode: true } })
                   dispatch({ type: 'START_QUIZ', payload: questions })
+                } else {
+                  showToast(dispatch, 'Could not reach question server. Using local questions.', 'error')
                 }
               } finally {
                 dispatch({ type: 'SET_LOADING', payload: false }

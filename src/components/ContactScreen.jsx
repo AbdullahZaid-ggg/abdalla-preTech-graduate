@@ -1,4 +1,6 @@
-export default function ContactScreen() {
+import { memo } from 'react'
+
+export default memo(function ContactScreen() {
   return (
     <section className="screen-main">
       <div className="page-card">
@@ -41,4 +43,4 @@ export default function ContactScreen() {
       </div>
     </section>
   )
-}
+})

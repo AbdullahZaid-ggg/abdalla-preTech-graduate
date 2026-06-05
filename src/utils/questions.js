@@ -172,6 +172,22 @@ export function loadLocalQuestions(category = 'All', difficulty = 'all') {
   return { questions: filtered.map(q => ({ ...q })), category, difficulty }
 }
 
+export function convertToTrueFalse(questions) {
+  return questions.map(q => {
+    const wrongOptions = q.options.filter((_, i) => i !== q.correct)
+    const wrongText = wrongOptions[Math.floor(Math.random() * wrongOptions.length)]
+    const correctText = q.options[q.correct]
+    const showCorrect = Math.random() > 0.5
+    return {
+      ...q,
+      options: ['True', 'False'],
+      correct: showCorrect ? 0 : 1,
+      trueFalseStatement: showCorrect ? correctText : wrongText,
+      trueFalseIsCorrect: showCorrect,
+    }
+  })
+}
+
 let apiLoading = false
 
 export async function loadApiQuestions(settings) {
@@ -198,7 +214,6 @@ export async function loadApiQuestions(settings) {
       return loadApiQuestions(settings)
     }
     if (data.response_code !== 0 || !data.results.length) {
-      alert('Could not reach the question server. Using local questions instead.')
       apiLoading = false
       return null
     }
@@ -215,7 +230,6 @@ export async function loadApiQuestions(settings) {
     apiLoading = false
     return questions
   } catch {
-    alert('Could not reach the question server. Using local questions instead.')
     apiLoading = false
     return null
   }

@@ -20,6 +20,8 @@ const initialState = {
   loading: false,
   toasts: [],
   practiceMode: false,
+  muted: false,
+  questionMode: 'multiple',
 }
 
 function reducer(state, action) {
@@ -116,6 +118,12 @@ function reducer(state, action) {
 
     case 'SET_PRACTICE_MODE':
       return { ...state, practiceMode: action.payload }
+
+    case 'TOGGLE_MUTED':
+      return { ...state, muted: !state.muted }
+
+    case 'SET_QUESTION_MODE':
+      return { ...state, questionMode: action.payload }
 
     default:
       return state

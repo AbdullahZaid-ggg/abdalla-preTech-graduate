@@ -84,7 +84,15 @@ body {
 }
 
 .hidden { display: none !important; }
-.screen-main { width: 100%; }
+.screen-main {
+  width: 60%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 [data-theme="light"] {
   --md-primary: #00897b;

@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useQuiz } from '../context/QuizContext'
 
 let toastId = 0
@@ -10,7 +11,7 @@ export function showToast(dispatch, message, type = 'success') {
   }, 3000)
 }
 
-export default function ToastContainer() {
+export default memo(function ToastContainer() {
   const { state, dispatch } = useQuiz()
   if (!state.toasts.length) return null
 
@@ -31,4 +32,4 @@ export default function ToastContainer() {
       ))}
     </div>
   )
-}
+})
