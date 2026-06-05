@@ -1,4 +1,4 @@
-# 🏆 Quiz Arena
+# Quiz Arena
 
 <div align="center">
 
@@ -12,7 +12,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 - **108 Local Questions** across 13 categories (Science, IT, Math, General, History, Geography, Nature, Sports, Music, Movies & TV, Food & Health, Space, Art & Literature)
 - **API Quizzes** — Fetch fresh questions from [Open Trivia Database](https://opentdb.com) with custom settings
@@ -26,11 +26,12 @@
 - **Keyboard Shortcuts** — 1-4 to answer, Enter for next, Arrow keys to navigate
 - **Timed Questions** — 20-second countdown per question
 - **Responsive Design** — Works on desktop, tablet, and mobile
+- **PWA Support** — Service worker for offline caching
 - **MD3 + Cyber Theme** — Material Design 3 with a cyber aesthetic
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Technology | Purpose |
 |-----------|---------|
@@ -44,7 +45,7 @@
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+
@@ -57,7 +58,7 @@
 git clone https://github.com/AbdullahZaid-ggg/abdalla-preTech-graduate.git
 
 # Navigate to the project
-cd abdalla-preTech-graduate/oldP
+cd abdalla-preTech-graduate
 
 # Install dependencies
 npm install
@@ -77,48 +78,50 @@ npm run preview
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-oldP/
-├── public/                    # Static assets
-│   └── assets/
-│       ├── icons/             # SVG icons (Gmail, LinkedIn, GitHub, etc.)
-│       └── images/            # SVG illustrations (hero, trophy, etc.)
+├── public/                     # Static assets
+│   ├── assets/                 # SVG icons and illustrations
+│   ├── manifest.json           # PWA manifest
+│   └── sw.js                   # Service worker
 ├── src/
-│   ├── components/            # React components
-│   │   ├── Navbar.jsx         # Navigation bar with theme toggle
-│   │   ├── HomeScreen.jsx     # Welcome / hero page
-│   │   ├── CategoryScreen.jsx # Category and difficulty picker
-│   │   ├── QuizScreen.jsx     # Quiz question display
-│   │   ├── ResultsScreen.jsx  # Quiz results and analysis
-│   │   ├── HistoryScreen.jsx  # Quiz history and daily comparison
-│   │   ├── AboutScreen.jsx    # About the project
-│   │   └── ContactScreen.jsx  # Contact information
+│   ├── components/             # React components
+│   │   ├── Navbar.jsx          # Navigation bar with theme toggle
+│   │   ├── HomeScreen.jsx      # Welcome / hero page
+│   │   ├── CategoryScreen.jsx  # Category and difficulty picker
+│   │   ├── QuizScreen.jsx      # Quiz question display
+│   │   ├── ResultsScreen.jsx   # Quiz results and analysis
+│   │   ├── HistoryScreen.jsx   # Quiz history and daily comparison
+│   │   ├── AboutScreen.jsx     # About the project
+│   │   ├── ContactScreen.jsx   # Contact information
+│   │   ├── ToastContainer.jsx  # Toast notification system
+│   │   └── ErrorBoundary.jsx   # Error boundary wrapper
 │   ├── context/
-│   │   └── QuizContext.jsx    # Global state management
+│   │   └── QuizContext.jsx     # Global state management
 │   ├── utils/
-│   │   ├── config.js          # App configuration constants
-│   │   ├── utils.js           # Helper functions
-│   │   ├── storage.js         # localStorage CRUD operations
-│   │   ├── sound.js           # Web Audio API sound effects
-│   │   ├── confetti.js        # Canvas confetti animation
-│   │   └── questions.js       # 108 local questions + API fetch
-│   ├── App.jsx                # Main app component
-│   └── main.jsx               # Entry point
-├── style/                     # CSS stylesheets
-│   ├── theme.css              # Design tokens, light/dark variables
-│   ├── layout.css             # Nav, main, footer layout
-│   ├── components.css         # All component styles
-│   └── responsive.css         # Responsive breakpoints
-├── index.html                 # HTML entry point
+│   │   ├── storage.js          # localStorage CRUD operations
+│   │   ├── sound.js            # Web Audio API sound effects
+│   │   └── questions.js        # 108 local questions + API fetch
+│   ├── test/
+│   │   ├── setup.js            # Test environment setup
+│   │   ├── questions.test.js   # Questions utility tests
+│   │   └── utils.test.js       # General utility tests
+│   ├── App.jsx                 # Main app component
+│   └── main.jsx                # Entry point
+├── style/                      # CSS stylesheets
+│   ├── theme.css               # Design tokens, light/dark variables
+│   ├── layout.css              # Nav, main, footer layout
+│   ├── components.css          # All component styles
+│   └── responsive.css          # Responsive breakpoints
+├── index.html                  # HTML entry point
 ├── package.json
 └── vite.config.js
 ```
 
 ---
 
-## 🎮 How to Play
+## How to Play
 
 1. **Choose a Category** — Pick from 13 topics or try "All Topics"
 2. **Select Difficulty** — Easy, Medium, Hard, or mix them all
@@ -136,7 +139,7 @@ oldP/
 
 ---
 
-## 🌐 API Mode
+## API Mode
 
 Click **"Try API Quiz"** on the home screen to fetch questions from the Open Trivia Database. You can customize:
 - Category (General Knowledge, Science, Computers, etc.)
@@ -146,7 +149,7 @@ Click **"Try API Quiz"** on the home screen to fetch questions from the Open Tri
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
@@ -158,13 +161,13 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the Apache 2.0 License — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 👨‍💻 Developer
+## Developer
 
 **AbdAlla Zaid**
 
