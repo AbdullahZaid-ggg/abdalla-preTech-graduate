@@ -1,4 +1,4 @@
-# Quiz Arena
+# Z-Fahm
 
 <div align="center">
 
@@ -55,10 +55,10 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/AbdullahZaid-ggg/abdalla-preTech-graduate.git
+git clone https://github.com/AbdullahZaid-ggg/Z-Fahm.git
 
 # Navigate to the project
-cd abdalla-preTech-graduate
+cd Z-Fahm
 
 # Install dependencies
 npm install

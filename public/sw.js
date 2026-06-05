@@ -1,4 +1,4 @@
-const CACHE = 'quiz-arena-v1'
+const CACHE = 'z-fahm-v1'
 const ASSETS = [
   '/',
   '/index.html',

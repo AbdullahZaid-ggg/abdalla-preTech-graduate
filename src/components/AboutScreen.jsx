@@ -14,7 +14,7 @@ export default memo(function AboutScreen() {
     },
     {
       label: 'Source Code',
-      url: 'https://github.com/AbdullahZaid-ggg/abdalla-preTech-graduate',
+      url: 'https://github.com/AbdullahZaid-ggg/Z-Fahm',
       icon: <svg viewBox="0 0 20 20" width="18" height="18"><path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z" fill="currentColor"/><path d="M8 6h4M8 9h4M8 12h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/></svg>,
     },
   ]
@@ -25,14 +25,14 @@ export default memo(function AboutScreen() {
         <div className="page-card-header">
           <h2>
             <svg viewBox="0 0 20 20" width="20" height="20" style={{ verticalAlign: -3 }}><circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M10 8v5m0-7v1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-            <span> About Quiz Arena</span>
+            <span> About Z-Fahm</span>
           </h2>
           <p>Learn more about this project</p>
         </div>
         <div className="page-card-body">
           <div className="about-section" style={{ marginBottom: 28 }}>
-            <h3 style={{ fontSize: '1.1rem', fontFamily: 'var(--font-display)', marginBottom: 8, color: 'var(--md-primary)' }}>What is Quiz Arena?</h3>
-            <p style={{ lineHeight: 1.7, fontSize: '0.92rem' }}>Quiz Arena is a full-featured interactive quiz game built from scratch with React. Test your knowledge across 12 categories with 98 local questions, or fetch fresh questions from the <strong>Open Trivia Database API</strong>. Track every attempt, compare your performance day by day with a daily comparison chart, build streaks, and celebrate high scores with confetti — all wrapped in a sleek Material Design 3 + Cyber theme with dark and light mode support.</p>
+            <h3 style={{ fontSize: '1.1rem', fontFamily: 'var(--font-display)', marginBottom: 8, color: 'var(--md-primary)' }}>What is Z-Fahm?</h3>
+            <p style={{ lineHeight: 1.7, fontSize: '0.92rem' }}>Z-Fahm is a full-featured interactive quiz game built from scratch with React. Test your knowledge across 12 categories with 98 local questions, or fetch fresh questions from the <strong>Open Trivia Database API</strong>. Track every attempt, compare your performance day by day with a daily comparison chart, build streaks, and celebrate high scores with confetti — all wrapped in a sleek Material Design 3 + Cyber theme with dark and light mode support.</p>
           </div>
           <div className="about-section" style={{ marginBottom: 28 }}>
             <h3 style={{ fontSize: '1.1rem', fontFamily: 'var(--font-display)', marginBottom: 8, color: 'var(--md-primary)' }}>Features</h3>

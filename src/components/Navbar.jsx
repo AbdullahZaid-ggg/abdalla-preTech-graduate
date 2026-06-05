@@ -33,9 +33,9 @@ export default memo(function Navbar() {
       <nav className="top-nav">
         <div className="nav-inner">
           <button className="nav-brand" onClick={() => navigateTo('/')}>
-            <img className="logo-dark" src="/assets/images/hero.svg" alt="Quiz Arena" />
-            <img className="logo-light" src="/assets/images/hero-light.svg" alt="Quiz Arena" />
-            <span>Quiz Arena</span>
+            <img className="logo-dark" src="/assets/images/hero.svg" alt="Z-Fahm" />
+            <img className="logo-light" src="/assets/images/hero-light.svg" alt="Z-Fahm" />
+            <span>Z-Fahm</span>
           </button>
           <div className="nav-tabs">
             {tabs.map(t => (

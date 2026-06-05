@@ -1,4 +1,4 @@
-const DB_NAME = 'QuizArenaDB'
+const DB_NAME = 'ZFahmDB'
 const DB_VERSION = 1
 const STORE_NAME = 'questionSets'
 

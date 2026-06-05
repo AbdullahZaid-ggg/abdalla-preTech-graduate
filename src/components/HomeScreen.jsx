@@ -26,11 +26,11 @@ export default function HomeScreen() {
         <div className="hero-card-bg" />
         <div className="hero-card-inner">
           <div className="hero-visual">
-            <img className="logo-dark" src="/assets/images/hero.svg" alt="Quiz Arena" />
-            <img className="logo-light" src="/assets/images/hero-light.svg" alt="Quiz Arena" />
+            <img className="logo-dark" src="/assets/images/hero.svg" alt="Z-Fahm" />
+            <img className="logo-light" src="/assets/images/hero-light.svg" alt="Z-Fahm" />
           </div>
           <div className="hero-text">
-            <h1 className="hero-title">Quiz Arena</h1>
+            <h1 className="hero-title">Z-Fahm</h1>
             <p className="hero-sub">Test your knowledge. Track your growth.</p>
             {total > 0 ? (
               <div className="hero-pills">
