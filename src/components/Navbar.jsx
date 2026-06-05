@@ -28,7 +28,8 @@ export default function Navbar() {
     <nav className="top-nav">
       <div className="nav-inner">
         <button className="nav-brand" onClick={() => navigate('home')}>
-          <img id="nav-logo" src="/assets/images/hero.svg" alt="" />
+          <img className="logo-dark" src="/assets/images/hero.svg" alt="" />
+          <img className="logo-light" src="/assets/images/hero-light.svg" alt="" />
           <span>Quiz Arena</span>
         </button>
         <div className="nav-tabs">

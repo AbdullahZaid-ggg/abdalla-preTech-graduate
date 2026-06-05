@@ -10,7 +10,8 @@ export default function HomeScreen() {
     <section className="screen-main">
       <div className="hero-section">
         <div className="hero-visual">
-          <img id="hero-logo" src="/assets/images/hero.svg" alt="Quiz Arena" />
+          <img className="logo-dark" src="/assets/images/hero.svg" alt="Quiz Arena" />
+          <img className="logo-light" src="/assets/images/hero-light.svg" alt="Quiz Arena" style={{ display: 'none' }} />
         </div>
         <div className="hero-text">
           <h1 className="hero-title">Quiz Arena</h1>

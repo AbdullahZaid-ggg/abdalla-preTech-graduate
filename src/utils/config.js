@@ -1,5 +1,5 @@
 export const CONFIG = {
-  TIMER_DURATION: 20,
+  TIMER_DURATION: 10,
   HISTORY_KEY: 'quizHistory',
   STATE_KEY: 'quizState',
   TOKEN_KEY: 'opentdb_token',

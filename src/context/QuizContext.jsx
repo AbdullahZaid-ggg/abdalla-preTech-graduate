@@ -42,13 +42,15 @@ function reducer(state, action) {
         score: 0,
         streak: 0,
         userAnswers: new Array(total).fill(-1),
-        timerRemaining: CONFIG.TIMER_DURATION,
+        timerRemaining: CONFIG.TIMER_DURATION * total,
         screen: 'quiz',
       }
     }
 
     case 'RESUME_QUIZ': {
       const saved = action.payload
+      const total = saved.quizQuestions.length
+      const remainingTime = CONFIG.TIMER_DURATION * total - Math.floor((Date.now() - (saved.timestamp || Date.now())) / 1000)
       return {
         ...state,
         quizQuestions: saved.quizQuestions,
@@ -56,6 +58,7 @@ function reducer(state, action) {
         score: saved.score,
         userAnswers: saved.userAnswers,
         isApiMode: saved.isApiMode,
+        timerRemaining: Math.max(0, remainingTime),
         screen: 'quiz',
       }
     }
@@ -76,16 +79,16 @@ function reducer(state, action) {
     case 'NEXT_QUESTION': {
       const nextIdx = state.currentQuestionIndex + 1
       if (nextIdx >= state.quizQuestions.length) {
-        return { ...state, screen: 'results', timerRemaining: CONFIG.TIMER_DURATION }
+        return { ...state, screen: 'results' }
       }
-      return { ...state, currentQuestionIndex: nextIdx, timerRemaining: CONFIG.TIMER_DURATION }
+      return { ...state, currentQuestionIndex: nextIdx }
     }
 
     case 'PREV_QUESTION':
       return { ...state, currentQuestionIndex: Math.max(0, state.currentQuestionIndex - 1) }
 
     case 'GO_TO_QUESTION':
-      return { ...state, currentQuestionIndex: action.payload, timerRemaining: CONFIG.TIMER_DURATION }
+      return { ...state, currentQuestionIndex: action.payload }
 
     case 'SHOW_RESULTS':
       return { ...state, screen: 'results' }

@@ -945,6 +945,23 @@
   background: rgba(255, 68, 68, 0.06);
 }
 
+/* ========== TIMER ========== */
+
+.q-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--md-on-surface-variant);
+  font-variant-numeric: tabular-nums;
+}
+
+.q-timer.warning {
+  color: var(--md-error);
+  animation: pulse 0.5s ease infinite;
+}
+
 /* ========== KEYBOARD HINT ========== */
 
 .keyboard-hint {

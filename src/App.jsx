@@ -49,11 +49,6 @@ export default function App() {
     return () => document.removeEventListener('keydown', handleKey)
   }, [state.screen])
 
-  useEffect(() => {
-    const src = state.theme === 'dark' ? '/assets/images/hero.svg' : '/assets/images/hero-light.svg'
-    document.querySelectorAll('.nav-brand img, #hero-logo').forEach(img => { if (img) img.src = src })
-  }, [state.theme])
-
   return (
     <div className="app-wrapper">
       <Navbar />

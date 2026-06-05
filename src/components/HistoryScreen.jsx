@@ -1,10 +1,24 @@
+import { useState, useEffect } from 'react'
+import { loadHistory, deleteQuizAttempt, clearAllHistory } from '../utils/storage'
+
 export default function HistoryScreen() {
-  const history = (() => {
-    try {
-      const data = localStorage.getItem('quizHistory')
-      return data ? JSON.parse(data) : []
-    } catch { return [] }
-  })()
+  const [history, setHistory] = useState([])
+  const [confirmClear, setConfirmClear] = useState(false)
+
+  useEffect(() => { setHistory(loadHistory()) }, [])
+
+  function refresh() { setHistory(loadHistory()) }
+
+  function handleDelete(id) {
+    deleteQuizAttempt(id)
+    refresh()
+  }
+
+  function handleClearAll() {
+    clearAllHistory()
+    setConfirmClear(false)
+    refresh()
+  }
 
   const totalQuizzes = history.length
   const avgPct = totalQuizzes ? Math.round(history.reduce((s, a) => s + a.percentage, 0) / totalQuizzes) : 0
@@ -34,34 +48,60 @@ export default function HistoryScreen() {
             <div className="stat-card"><span className="stat-value">{best}%</span><span className="stat-label">Best</span></div>
           </div>
 
+          {totalQuizzes > 0 && (
+            <div style={{ textAlign: 'right', marginBottom: 16 }}>
+              <button className="btn btn-sm btn-text" onClick={() => setConfirmClear(true)} style={{ color: 'var(--md-error)' }}>
+                <svg viewBox="0 0 16 16" width="14" height="14" style={{ verticalAlign: -2 }}><path d="M2 4h12M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M13 4v9a1 1 0 01-1 1H4a1 1 0 01-1-1V4" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round"/></svg>
+                Clear All
+              </button>
+            </div>
+          )}
+
+          {confirmClear && (
+            <div className="diff-picker">
+              <div className="diff-picker-backdrop" onClick={() => setConfirmClear(false)} />
+              <div className="diff-picker-card" style={{ maxWidth: 320 }}>
+                <h3>Clear All History?</h3>
+                <p style={{ fontSize: '0.85rem', color: 'var(--md-on-surface-variant)', margin: '12px 0 20px' }}>This action cannot be undone.</p>
+                <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
+                  <button className="btn btn-sm btn-text" onClick={() => setConfirmClear(false)}>Cancel</button>
+                  <button className="btn btn-sm btn-primary" onClick={handleClearAll} style={{ background: 'var(--md-error)', boxShadow: 'var(--glow-error)' }}>Delete All</button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {totalQuizzes === 0 ? (
-            <p className="history-empty" style={{ textAlign: 'center', color: 'var(--md-on-surface-variant)', padding: 32 }}>No quiz attempts yet.</p>
+            <p className="history-empty">No quiz attempts yet.</p>
           ) : (
-            <div className="history-body" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-              <div className="history-primary" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--md-outline-variant)', borderRadius: 'var(--shape-lg)', padding: 20 }}>
+            <div className="history-body">
+              <div className="history-primary">
                 <h3 className="section-label">Attempts</h3>
                 {sortedDates.map(date => (
-                  <div key={date} className="history-day-group" style={{ marginBottom: 16 }}>
-                    <div className="history-day-header" style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 10px', background: 'rgba(255,255,255,0.03)', borderRadius: 'var(--shape-sm)', marginBottom: 6 }}>
-                      <span className="history-day-label" style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--md-primary)' }}>
+                  <div key={date} className="history-day-group">
+                    <div className="history-day-header">
+                      <span className="history-day-label">
                         {date === new Date().toISOString().slice(0, 10) ? 'Today' : date}
                       </span>
                     </div>
                     {groups[date].map(a => (
-                      <div key={a.id} className="history-row" style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', fontSize: '0.83rem', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
-                        <span className="history-source" style={{ padding: '2px 6px', borderRadius: 'var(--shape-xs)', background: 'rgba(0,229,255,0.08)', color: 'var(--md-primary)', fontSize: '0.72rem', fontWeight: 600 }}>{a.source === 'api' ? 'API' : 'Local'}</span>
-                        <span className="history-cat" style={{ padding: '2px 8px', borderRadius: 'var(--shape-xs)', background: 'rgba(0,229,255,0.06)', color: 'var(--md-primary)', fontSize: '0.72rem', fontWeight: 600 }}>{a.category || 'All'}</span>
-                        <span className="history-score" style={{ fontWeight: 700 }}>{a.score}/{a.total}</span>
-                        <span className="history-pct" style={{ fontWeight: 600, color: 'var(--md-tertiary)', marginLeft: 'auto' }}>{a.percentage}%</span>
-                        <span className="history-time" style={{ color: 'var(--md-on-surface-variant)', fontSize: '0.78rem' }}>
+                      <div key={a.id} className="history-row">
+                        <span className="history-source">{a.source === 'api' ? 'API' : 'Local'}</span>
+                        <span className="history-cat">{a.category || 'All'}</span>
+                        <span className="history-score">{a.score}/{a.total}</span>
+                        <span className="history-pct">{a.percentage}%</span>
+                        <span className="history-time">
                           {new Date(a.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </span>
+                        <button className="history-del-btn" onClick={() => handleDelete(a.id)} title="Delete entry">
+                          <svg viewBox="0 0 14 14" width="12" height="12"><path d="M2 4h10M4.5 4V3a1 1 0 011-1h3a1 1 0 011 1v1M11 4v7a1 1 0 01-1 1H4a1 1 0 01-1-1V4" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round"/></svg>
+                        </button>
                       </div>
                     ))}
                   </div>
                 ))}
               </div>
-              <div className="history-secondary" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--md-outline-variant)', borderRadius: 'var(--shape-lg)', padding: 20 }}>
+              <div className="history-secondary">
                 <h3 className="section-label">
                   <svg viewBox="0 0 16 16" width="16" height="16" style={{ verticalAlign: -2 }}><path d="M1 14h14M3 10l3-4 3 2 5-6" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   <span> Day Comparison</span>
@@ -77,7 +117,7 @@ export default function HistoryScreen() {
 }
 
 function ComparisonContent({ groups, sortedDates }) {
-  if (sortedDates.length === 0) return <p style={{ textAlign: 'center', color: 'var(--md-on-surface-variant)', padding: 20, fontSize: '0.88rem' }}>Complete quizzes on multiple days to see comparisons.</p>
+  if (sortedDates.length === 0) return <p className="comparison-empty">Complete quizzes on multiple days to see comparisons.</p>
 
   const latest = groups[sortedDates[0]]
   const latestAvg = Math.round(latest.reduce((s, a) => s + a.percentage, 0) / latest.length)
@@ -85,9 +125,9 @@ function ComparisonContent({ groups, sortedDates }) {
   if (sortedDates.length === 1) {
     const best = Math.max(...latest.map(a => a.percentage))
     return (
-      <div className="comparison-card" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--md-outline-variant)', borderRadius: 'var(--shape-md)', padding: 20, textAlign: 'center' }}>
-        <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--md-tertiary)', marginBottom: 4 }}>Today's Best: {best}%</div>
-        <div style={{ fontSize: '0.85rem', color: 'var(--md-on-surface-variant)' }}>{latest.length} quiz{latest.length > 1 ? 'zes' : ''} completed today</div>
+      <div className="comparison-card">
+        <div className="comparison-best">Today's Best: {best}%</div>
+        <div className="comparison-count">{latest.length} quiz{latest.length > 1 ? 'zes' : ''} completed today</div>
       </div>
     )
   }
@@ -99,19 +139,19 @@ function ComparisonContent({ groups, sortedDates }) {
   const color = diff > 0 ? 'var(--md-tertiary)' : diff < 0 ? 'var(--md-error)' : 'var(--md-on-surface-variant)'
 
   return (
-    <div className="comparison-card" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--md-outline-variant)', borderRadius: 'var(--shape-md)', padding: 20, textAlign: 'center' }}>
-      <div style={{ fontSize: '0.85rem', color: 'var(--md-on-surface-variant)', marginBottom: 14 }}>{sortedDates[0]} vs {sortedDates[1]}</div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-        <div style={{ textAlign: 'center' }}>
-          <span style={{ display: 'block', fontSize: '0.78rem', color: 'var(--md-on-surface-variant)', marginBottom: 4 }}>{sortedDates[0]}</span>
-          <span style={{ display: 'block', fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-display)' }}>{latestAvg}%</span>
+    <div className="comparison-card">
+      <div className="comparison-header">{sortedDates[0]} vs {sortedDates[1]}</div>
+      <div className="comparison-grid">
+        <div className="comparison-col">
+          <span className="comparison-label">{sortedDates[0]}</span>
+          <span className="comparison-val">{latestAvg}%</span>
         </div>
-        <div style={{ fontSize: '1.2rem', fontWeight: 700, color }}>
+        <div className="comparison-divider" style={{ color }}>
           <svg viewBox="0 0 14 14" width="14" height="14" style={{ verticalAlign: -2 }} dangerouslySetInnerHTML={{ __html: arrow }} /> {Math.abs(diff)}%
         </div>
-        <div style={{ textAlign: 'center' }}>
-          <span style={{ display: 'block', fontSize: '0.78rem', color: 'var(--md-on-surface-variant)', marginBottom: 4 }}>{sortedDates[1]}</span>
-          <span style={{ display: 'block', fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-display)' }}>{prevAvg}%</span>
+        <div className="comparison-col">
+          <span className="comparison-label">{sortedDates[1]}</span>
+          <span className="comparison-val">{prevAvg}%</span>
         </div>
       </div>
     </div>

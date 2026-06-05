@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuiz } from '../context/QuizContext'
-import { CATEGORIES, getCategoryCount, getDifficultyCount, loadLocalQuestions } from '../utils/questions'
+import { CATEGORIES, getCategoryCount, getDifficultyCount, getTotalCount, loadLocalQuestions } from '../utils/questions'
 
 export default function CategoryScreen() {
   const { dispatch } = useQuiz()
@@ -43,7 +43,7 @@ export default function CategoryScreen() {
             <button className="cat-card cat-all" onClick={() => startCategoryQuiz('All')} style={{ '--cat-color': 'var(--md-primary)' }}>
               <span className="cat-icon"><svg viewBox="0 0 20 20" width="20" height="20"><path d="M2 3h7v7H2zm0 9h7v5H2zm9-9h7v7h-7zm0 9h7v5h-7z" fill="currentColor"/></svg></span>
               <span className="cat-name">All Topics</span>
-              <span className="cat-count">{108} questions</span>
+              <span className="cat-count">{getTotalCount()} questions</span>
             </button>
           </div>
 
@@ -63,7 +63,7 @@ export default function CategoryScreen() {
                         <span className="diff-icon"><svg viewBox="0 0 16 16" width="16" height="16"><path d="M1 2h6v6H1zm0 8h6v4H1zm8-8h6v6H9zm0 8h6v4H9z" fill="currentColor"/></svg></span>
                       )}
                       <span className="diff-label">{d === 'all' ? 'All Difficulties' : d.charAt(0).toUpperCase() + d.slice(1)}</span>
-                      <span className="diff-count">{d === 'all' ? (pickedCat === 'All' ? 108 : getCategoryCount(pickedCat)) : getDifficultyCount(pickedCat, d)} questions</span>
+                      <span className="diff-count">{d === 'all' ? (pickedCat === 'All' ? getTotalCount() : getCategoryCount(pickedCat)) : getDifficultyCount(pickedCat, d)} questions</span>
                     </button>
                   ))}
                 </div>

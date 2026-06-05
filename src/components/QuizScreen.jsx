@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useQuiz } from '../context/QuizContext'
 import { playCorrect, playWrong, playComplete, playClick } from '../utils/sound'
 import { launchConfetti } from '../utils/confetti'
@@ -11,28 +11,28 @@ export default function QuizScreen() {
   const total = state.quizQuestions.length
   const idx = state.currentQuestionIndex
   const answered = state.userAnswers[idx]
+  const timeUp = useRef(false)
 
   useEffect(() => {
-    if (!q) return
-    if (answered === -1) {
-      const timer = setInterval(() => {
-        dispatch({ type: 'TICK_TIMER' })
-      }, 1000)
-      return () => clearInterval(timer)
-    }
-  }, [idx, answered])
+    const timer = setInterval(() => {
+      dispatch({ type: 'TICK_TIMER' })
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   useEffect(() => {
-    if (state.timerRemaining <= 0 && answered === -1) {
-      handleTimeout()
+    if (state.timerRemaining <= 0 && !timeUp.current) {
+      timeUp.current = true
+      clearState()
+      const pct = Math.round((state.score / total) * 100)
+      saveQuizAttempt(state.score, total, state.isApiMode ? 'api' : 'local', state.quizQuestions, state.userAnswers, state.localCategory, state.localDifficulty)
+      if (pct >= 80) {
+        setTimeout(launchConfetti, 300)
+        setTimeout(playComplete, 300)
+      }
+      dispatch({ type: 'SHOW_RESULTS' })
     }
   }, [state.timerRemaining])
-
-  function handleTimeout() {
-    dispatch({ type: 'ANSWER_QUESTION', payload: { index: -2 } })
-    saveStateFromQuiz({ ...state, userAnswers: [...state.userAnswers.slice(0, idx), -2, ...state.userAnswers.slice(idx + 1)] })
-    setTimeout(() => dispatch({ type: 'NEXT_QUESTION' }), 800)
-  }
 
   function saveStateFromQuiz(current) {
     saveState({
@@ -41,6 +41,7 @@ export default function QuizScreen() {
       score: current.score,
       userAnswers: current.userAnswers,
       isApiMode: current.isApiMode,
+      timestamp: Date.now(),
     })
   }
 
@@ -59,6 +60,7 @@ export default function QuizScreen() {
       score: newScore,
       userAnswers: newAnswers,
       isApiMode: state.isApiMode,
+      timestamp: Date.now(),
     })
   }
 
@@ -100,6 +102,10 @@ export default function QuizScreen() {
             <div className="progress-track"><div className="progress-fill" style={{ width: `${(idx / total) * 100}%` }} /></div>
           </div>
           <div className="quiz-bar-right">
+            <span className="q-timer" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '0.85rem', fontWeight: 700, color: state.timerRemaining <= 10 ? 'var(--md-error)' : 'var(--md-on-surface-variant)' }}>
+              <svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M8 4v4l3 3" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round"/></svg>
+              <span>{Math.floor(state.timerRemaining / 60)}:{(state.timerRemaining % 60).toString().padStart(2, '0')}</span>
+            </span>
             {state.streak >= 2 && (
               <span className="q-streak">
                 <svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 1S4 5 4 9c0 2.2 1.8 4 4 4s4-1.8 4-4c0-4-4-8-4-8z" fill="currentColor" opacity="0.7"/><path d="M8 11c-1.1 0-2-.9-2-2 0-1.5 2-4 2-4s2 2.5 2 4c0 1.1-.9 2-2 2z" fill="currentColor"/></svg>
