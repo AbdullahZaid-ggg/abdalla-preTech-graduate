@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { useQuiz } from './context/QuizContext'
 import Navbar from './components/Navbar'
 import HomeScreen from './components/HomeScreen'
@@ -142,6 +143,7 @@ export default function App() {
         </div>
       )}
       <ToastContainer />
+      <Analytics />
     </div>
   )
 }
