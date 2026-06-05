@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180">
+  <defs>
+    <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="hg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#ff00e5"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="180" rx="16" fill="rgba(255,255,255,0.015)"/>
+  <g transform="translate(120,95)">
+    <rect x="-60" y="-50" width="120" height="90" rx="8" fill="none" stroke="var(--md-outline-variant, #44445e)" stroke-width="1.5" opacity="0.4"/>
+    <rect x="-52" y="-42" width="104" height="6" rx="2" fill="var(--md-outline-variant, #44445e)" opacity="0.15"/>
+    <g opacity="0.5">
+      <rect x="-42" y="-26" width="36" height="3" rx="1.5" fill="url(#hg)"/>
+      <rect x="-42" y="-16" width="52" height="3" rx="1.5" fill="url(#hg2)" opacity="0.7"/>
+      <rect x="-42" y="-6" width="28" height="3" rx="1.5" fill="url(#hg)" opacity="0.5"/>
+      <rect x="-42" y="4" width="44" height="3" rx="1.5" fill="url(#hg2)" opacity="0.6"/>
+      <rect x="-42" y="14" width="20" height="3" rx="1.5" fill="url(#hg)" opacity="0.4"/>
+    </g>
+    <g transform="translate(0,36)" opacity="0.35">
+      <rect x="-54" y="0" width="14" height="22" rx="2" fill="#00e5ff">
+        <animate attributeName="height" values="22;28;22" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="0;-6;0" dur="2s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="-32" y="4" width="14" height="18" rx="2" fill="#6366f1">
+        <animate attributeName="height" values="18;24;18" dur="2.3s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="4;-2;4" dur="2.3s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="-10" y="2" width="14" height="20" rx="2" fill="#ff00e5">
+        <animate attributeName="height" values="20;26;20" dur="1.7s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="2;-4;2" dur="1.7s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="12" y="-2" width="14" height="24" rx="2" fill="#00e676">
+        <animate attributeName="height" values="24;30;24" dur="2.5s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="-2;-8;-2" dur="2.5s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="34" y="6" width="14" height="16" rx="2" fill="#00e5ff">
+        <animate attributeName="height" values="16;22;16" dur="1.9s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="6;0;6" dur="1.9s" repeatCount="indefinite"/>
+      </rect>
+      <line x1="-54" y1="24" x2="48" y2="24" stroke="var(--md-outline-variant, #44445e)" stroke-width="1" opacity="0.3"/>
+    </g>
+  </g>
+  <circle cx="30" cy="30" r="2" fill="#00e5ff" opacity="0.25"><animate attributeName="opacity" values="0.25;0;0.25" dur="2.8s" repeatCount="indefinite"/></circle>
+  <circle cx="210" cy="150" r="2" fill="#ff00e5" opacity="0.25"><animate attributeName="opacity" values="0.25;0;0.25" dur="2s" repeatCount="indefinite"/></circle>
+</svg>
