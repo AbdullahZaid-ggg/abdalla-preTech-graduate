@@ -16,7 +16,7 @@ const initialState = {
   timerInterval: null,
   localCategory: 'All',
   localDifficulty: 'all',
-  theme: localStorage.getItem(CONFIG.THEME_KEY) || 'dark',
+  theme: localStorage.getItem(CONFIG.THEME_KEY) || 'cyber',
   loading: false,
   toasts: [],
   practiceMode: false,
@@ -114,7 +114,7 @@ function reducer(state, action) {
       return { ...state, timerRemaining: CONFIG.TIMER_DURATION }
 
     case 'SET_THEME':
-      return { ...state, theme: state.theme === 'dark' ? 'light' : 'dark' }
+      return { ...state, theme: action.payload }
 
     case 'SET_PRACTICE_MODE':
       return { ...state, practiceMode: action.payload }
@@ -133,8 +133,11 @@ function reducer(state, action) {
 export function QuizProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  const lightThemes = ['light', 'dawn', 'mint', 'rose', 'sky']
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', state.theme)
+    document.documentElement.setAttribute('data-theme-mode', lightThemes.includes(state.theme) ? 'light' : 'dark')
     localStorage.setItem(CONFIG.THEME_KEY, state.theme)
   }, [state.theme])
 

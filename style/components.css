@@ -910,6 +910,110 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
+/* ========== THEME SELECTOR DROPDOWN ========== */
+
+.theme-selector {
+  position: relative;
+  margin-left: 8px;
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background: var(--md-surface-container);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--shape-md);
+  padding: 6px;
+  z-index: 100;
+  box-shadow: var(--elevation-3);
+  animation: fadeIn 0.15s ease;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--shape-sm);
+  background: transparent;
+  color: var(--md-on-surface);
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-align: left;
+}
+
+.theme-option:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.theme-option.active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid var(--md-outline-variant);
+}
+
+/* Sidebar themes */
+
+.sidebar-themes-section {
+  padding: 8px 4px;
+}
+
+.sidebar-themes-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--md-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  padding: 0 12px;
+}
+
+.sidebar-themes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 12px;
+}
+
+.sidebar-theme-opt {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--md-outline-variant);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+  padding: 0;
+}
+
+.sidebar-theme-opt:hover {
+  transform: scale(1.15);
+}
+
+.sidebar-theme-opt.active {
+  border-color: var(--md-primary);
+}
+
+.sidebar-theme-opt .theme-dot {
+  width: 16px;
+  height: 16px;
+  border: none;
+}
+
 /* ========== API SETTINGS ========== */
 
 .api-settings {
