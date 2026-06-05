@@ -10,9 +10,13 @@ import '../style/components.css'
 import '../style/responsive.css'
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-  })
+  if (import.meta.env.DEV) {
+    navigator.serviceWorker.getRegistrations().then(r => r.forEach(s => s.unregister()))
+  } else {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+    })
+  }
 }
 
 createRoot(document.getElementById('root')).render(

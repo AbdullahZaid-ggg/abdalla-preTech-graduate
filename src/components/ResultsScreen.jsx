@@ -78,8 +78,8 @@ export default function ResultsScreen() {
               <div key={i} className={`analysis-row${correct ? '' : ' wrong'}`}>
                 <span className="analysis-icon">
                   {correct
-                    ? '<svg viewBox="0 0 18 18" width="18" height="18"><circle cx="9" cy="9" r="7" fill="rgba(0,230,118,0.15)" stroke="#00e676" strokeWidth="1.5"/><path d="M5 9l3 3 5-5" stroke="#00e676" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>'
-                    : '<svg viewBox="0 0 18 18" width="18" height="18"><circle cx="9" cy="9" r="7" fill="rgba(255,68,68,0.15)" stroke="#ff4444" strokeWidth="1.5"/><path d="M6 6l6 6M12 6l-6 6" stroke="#ff4444" strokeWidth="1.5" fill="none" strokeLinecap="round"/></svg>'}
+                    ? <svg viewBox="0 0 18 18" width="18" height="18"><circle cx="9" cy="9" r="7" fill="rgba(0,230,118,0.15)" stroke="#00e676" strokeWidth="1.5"/><path d="M5 9l3 3 5-5" stroke="#00e676" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    : <svg viewBox="0 0 18 18" width="18" height="18"><circle cx="9" cy="9" r="7" fill="rgba(255,68,68,0.15)" stroke="#ff4444" strokeWidth="1.5"/><path d="M6 6l6 6M12 6l-6 6" stroke="#ff4444" strokeWidth="1.5" fill="none" strokeLinecap="round"/></svg>}
                 </span>
                 <span className="analysis-question" dangerouslySetInnerHTML={{ __html: q.question }} />
                 <span className="analysis-answer">{q.options[q.correct]}</span>
