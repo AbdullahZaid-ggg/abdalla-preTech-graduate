@@ -16,11 +16,23 @@ const initialState = {
   timerInterval: null,
   localCategory: 'All',
   localDifficulty: 'all',
-  theme: 'dark',
+  theme: localStorage.getItem(CONFIG.THEME_KEY) || 'dark',
+  loading: false,
+  toasts: [],
+  practiceMode: false,
 }
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'SET_LOADING':
+      return { ...state, loading: action.payload }
+
+    case 'ADD_TOAST':
+      return { ...state, toasts: [...state.toasts, action.payload] }
+
+    case 'REMOVE_TOAST':
+      return { ...state, toasts: state.toasts.filter(t => t.id !== action.payload) }
+
     case 'SET_SCREEN':
       return { ...state, screen: action.payload }
 
@@ -42,7 +54,7 @@ function reducer(state, action) {
         score: 0,
         streak: 0,
         userAnswers: new Array(total).fill(-1),
-        timerRemaining: CONFIG.TIMER_DURATION * total,
+        timerRemaining: state.practiceMode ? Infinity : CONFIG.TIMER_DURATION * total,
         screen: 'quiz',
       }
     }
@@ -100,7 +112,10 @@ function reducer(state, action) {
       return { ...state, timerRemaining: CONFIG.TIMER_DURATION }
 
     case 'SET_THEME':
-      return { ...state, theme: 'dark' }
+      return { ...state, theme: state.theme === 'dark' ? 'light' : 'dark' }
+
+    case 'SET_PRACTICE_MODE':
+      return { ...state, practiceMode: action.payload }
 
     default:
       return state
@@ -112,6 +127,7 @@ export function QuizProvider({ children }) {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', state.theme)
+    localStorage.setItem(CONFIG.THEME_KEY, state.theme)
   }, [state.theme])
 
   return (

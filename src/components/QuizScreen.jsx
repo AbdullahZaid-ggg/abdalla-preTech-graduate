@@ -5,6 +5,9 @@ import { launchConfetti } from '../utils/confetti'
 import { saveState, saveQuizAttempt, clearState } from '../utils/storage'
 import { CONFIG } from '../utils/config'
 
+const RADIUS = 22
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS
+
 export default function QuizScreen() {
   const { state, dispatch } = useQuiz()
   const q = state.quizQuestions[state.currentQuestionIndex]
@@ -14,11 +17,12 @@ export default function QuizScreen() {
   const timeUp = useRef(false)
 
   useEffect(() => {
+    if (state.practiceMode) return
     const timer = setInterval(() => {
       dispatch({ type: 'TICK_TIMER' })
     }, 1000)
     return () => clearInterval(timer)
-  }, [])
+  }, [state.practiceMode])
 
   useEffect(() => {
     if (state.timerRemaining <= 0 && !timeUp.current) {
@@ -102,10 +106,27 @@ export default function QuizScreen() {
             <div className="progress-track"><div className="progress-fill" style={{ width: `${(idx / total) * 100}%` }} /></div>
           </div>
           <div className="quiz-bar-right">
-            <span className="q-timer" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '0.85rem', fontWeight: 700, color: state.timerRemaining <= 10 ? 'var(--md-error)' : 'var(--md-on-surface-variant)' }}>
-              <svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M8 4v4l3 3" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round"/></svg>
-              <span>{Math.floor(state.timerRemaining / 60)}:{(state.timerRemaining % 60).toString().padStart(2, '0')}</span>
-            </span>
+            {state.practiceMode ? (
+              <span className="q-timer" style={{ color: 'var(--md-tertiary)' }}>
+                <svg viewBox="0 0 16 16" width="14" height="14"><circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M7 6v6l5-3z" fill="currentColor"/></svg>
+                <span>Practice</span>
+              </span>
+            ) : (
+              <div className="radial-timer" title={`${Math.floor(state.timerRemaining / 60)}:${(state.timerRemaining % 60).toString().padStart(2, '0')} remaining`}>
+                <svg viewBox="0 0 54 54" width="36" height="36">
+                  <circle cx="27" cy="27" r={RADIUS} fill="none" stroke="var(--md-outline-variant)" strokeWidth="3" />
+                  <circle cx="27" cy="27" r={RADIUS} fill="none"
+                    stroke={state.timerRemaining <= 10 ? 'var(--md-error)' : 'var(--md-primary)'}
+                    strokeWidth="3" strokeLinecap="round"
+                    strokeDasharray={CIRCUMFERENCE}
+                    strokeDashoffset={CIRCUMFERENCE * (1 - state.timerRemaining / (CONFIG.TIMER_DURATION * total))}
+                    transform="rotate(-90 27 27)"
+                    style={{ transition: 'stroke-dashoffset 1s linear, stroke 0.3s' }}
+                  />
+                </svg>
+                <span className="rt-time">{state.timerRemaining}s</span>
+              </div>
+            )}
             {state.streak >= 2 && (
               <span className="q-streak">
                 <svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 1S4 5 4 9c0 2.2 1.8 4 4 4s4-1.8 4-4c0-4-4-8-4-8z" fill="currentColor" opacity="0.7"/><path d="M8 11c-1.1 0-2-.9-2-2 0-1.5 2-4 2-4s2 2.5 2 4c0 1.1-.9 2-2 2z" fill="currentColor"/></svg>

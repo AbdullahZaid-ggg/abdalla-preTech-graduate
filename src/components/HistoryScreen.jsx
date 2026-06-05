@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
+import { useQuiz } from '../context/QuizContext'
 import { loadHistory, deleteQuizAttempt, clearAllHistory } from '../utils/storage'
+import { showToast } from './ToastContainer'
 
 export default function HistoryScreen() {
+  const { dispatch } = useQuiz()
   const [history, setHistory] = useState([])
   const [confirmClear, setConfirmClear] = useState(false)
 
@@ -11,12 +14,14 @@ export default function HistoryScreen() {
 
   function handleDelete(id) {
     deleteQuizAttempt(id)
+    showToast(dispatch, 'Entry deleted', 'success')
     refresh()
   }
 
   function handleClearAll() {
     clearAllHistory()
     setConfirmClear(false)
+    showToast(dispatch, 'All history cleared', 'success')
     refresh()
   }
 

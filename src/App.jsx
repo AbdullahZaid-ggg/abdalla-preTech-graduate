@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useQuiz } from './context/QuizContext'
 import Navbar from './components/Navbar'
 import HomeScreen from './components/HomeScreen'
@@ -8,6 +8,7 @@ import ResultsScreen from './components/ResultsScreen'
 import HistoryScreen from './components/HistoryScreen'
 import AboutScreen from './components/AboutScreen'
 import ContactScreen from './components/ContactScreen'
+import ToastContainer from './components/ToastContainer'
 import { playClick } from './utils/sound'
 
 const screens = {
@@ -22,7 +23,23 @@ const screens = {
 
 export default function App() {
   const { state, dispatch } = useQuiz()
-  const Screen = screens[state.screen] || HomeScreen
+  const [displayScreen, setDisplayScreen] = useState(state.screen)
+  const [phase, setPhase] = useState('enter')
+  const prevScreen = useRef(state.screen)
+
+  useEffect(() => {
+    if (state.screen !== prevScreen.current) {
+      setPhase('exit')
+      const timer = setTimeout(() => {
+        setDisplayScreen(state.screen)
+        prevScreen.current = state.screen
+        setPhase('enter')
+      }, 200)
+      return () => clearTimeout(timer)
+    }
+  }, [state.screen])
+
+  const Screen = screens[displayScreen] || HomeScreen
 
   useEffect(() => {
     function handleKey(e) {
@@ -53,7 +70,7 @@ export default function App() {
     <div className="app-wrapper">
       <Navbar />
       <main className="main-area">
-        <div className="main-content">
+        <div className={`main-content page-transition ${phase}`}>
           <Screen />
         </div>
       </main>
@@ -70,6 +87,13 @@ export default function App() {
           <span> Keyboard: 1-4 = answer, Enter = next,  ←  →  = navigate</span>
         </p>
       </footer>
+      {state.loading && (
+        <div className="loading-overlay">
+          <div className="spinner" />
+          <p className="loading-text">Loading questions...</p>
+        </div>
+      )}
+      <ToastContainer />
     </div>
   )
 }

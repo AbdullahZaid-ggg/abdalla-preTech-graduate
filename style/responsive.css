@@ -1,7 +1,7 @@
 @media (max-width: 768px) {
   .nav-inner { padding: 0 16px; }
-  .nav-tab { padding: 8px 12px; font-size: 0.82rem; }
-  .tab-label { display: none; }
+  .nav-tabs { display: none; }
+  .hamburger { display: flex; }
   .main-area { padding: 0 16px 80px; }
   .main-content { padding-top: 28px; }
   .hero-section { flex-direction: column; text-align: center; }
@@ -25,7 +25,7 @@
 @media (max-width: 550px) {
   .nav-tabs { gap: 0; }
   .nav-tab { padding: 8px 10px; }
-  .nav-brand span { display: none; }
+  .nav-brand span { display: inline; }
   .main-content { padding-top: 20px; }
   .hero-visual { max-width: 180px; }
   .hero-title { font-size: 2rem; }

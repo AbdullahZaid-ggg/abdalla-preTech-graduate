@@ -5,13 +5,16 @@ import { CATEGORIES, getCategoryCount, getDifficultyCount, getTotalCount, loadLo
 export default function CategoryScreen() {
   const { dispatch } = useQuiz()
   const [pickedCat, setPickedCat] = useState(null)
+  const [practiceMode, setPracticeMode] = useState(false)
 
   function startCategoryQuiz(cat) {
     setPickedCat(cat)
+    setPracticeMode(false)
   }
 
   function pickDifficulty(diff) {
     const { questions, category, difficulty } = loadLocalQuestions(pickedCat, diff)
+    dispatch({ type: 'SET_PRACTICE_MODE', payload: practiceMode })
     dispatch({ type: 'LOAD_QUESTIONS', payload: { questions, isApiMode: false, category, difficulty } })
     dispatch({ type: 'START_QUIZ', payload: questions })
     setPickedCat(null)
@@ -66,6 +69,13 @@ export default function CategoryScreen() {
                       <span className="diff-count">{d === 'all' ? (pickedCat === 'All' ? getTotalCount() : getCategoryCount(pickedCat)) : getDifficultyCount(pickedCat, d)} questions</span>
                     </button>
                   ))}
+                </div>
+                <div className="setting-row" style={{ marginTop: 16, marginBottom: 0 }}>
+                  <label>Practice Mode (no timer)</label>
+                  <label className="switch">
+                    <input type="checkbox" checked={practiceMode} onChange={e => setPracticeMode(e.target.checked)} />
+                    <span className="switch-slider" />
+                  </label>
                 </div>
                 <button className="btn btn-sm btn-text" onClick={cancelPick} style={{ marginTop: 12 }}>
                   <svg viewBox="0 0 16 16" width="16" height="16"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>

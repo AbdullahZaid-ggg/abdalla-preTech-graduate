@@ -3,7 +3,6 @@ import { loadState } from '../utils/storage'
 
 export default function HomeScreen() {
   const { state, dispatch } = useQuiz()
-
   const saved = loadState()
 
   return (
@@ -22,12 +21,18 @@ export default function HomeScreen() {
               <span>Choose Category</span>
             </button>
             <button className="btn btn-outline" onClick={async () => {
-              const { loadApiQuestions } = await import('../utils/questions')
-              const settings = { amount: 10, category: 18, difficulty: 'medium', shuffle: true }
-              const questions = await loadApiQuestions(settings)
-              if (questions) {
-                dispatch({ type: 'LOAD_QUESTIONS', payload: { questions, isApiMode: true } })
-                dispatch({ type: 'START_QUIZ', payload: questions })
+              dispatch({ type: 'SET_LOADING', payload: true })
+              try {
+                const { loadApiQuestions } = await import('../utils/questions')
+                const settings = { amount: 10, category: 18, difficulty: 'medium', shuffle: true }
+                const questions = await loadApiQuestions(settings)
+                if (questions) {
+                  dispatch({ type: 'LOAD_QUESTIONS', payload: { questions, isApiMode: true } })
+                  dispatch({ type: 'START_QUIZ', payload: questions })
+                }
+              } finally {
+                dispatch({ type: 'SET_LOADING', payload: false }
+              )
               }
             }}>
               <svg viewBox="0 0 18 18" width="18" height="18"><circle cx="9" cy="9" r="7" stroke="currentColor" strokeWidth="1.5" fill="none"/><path d="M2 9h14M9 2a11 11 0 000 14 11 11 0 000-14z" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
