@@ -1,0 +1,187 @@
+/* ============================================================
+   RESPONSIVE — DEVICE-BASED BREAKPOINTS
+   Default (no query) = computer / desktop
+   ============================================================ */
+
+/* ----- Touch devices (larger hit targets, no hover tricks) ----- */
+@media (pointer: coarse) {
+  .option-btn { padding: 14px 18px; }
+  .btn { padding: 14px 28px; }
+  .btn-sm { padding: 10px 18px; }
+  .cat-card { padding: 24px 12px; }
+  .page-dot { width: 36px; height: 36px; }
+  .nav-tab { padding: 10px 18px; }
+  .history-row { padding: 10px 12px; }
+}
+
+/* ----- Small laptop / tablet landscape (≤1024px) ----- */
+@media (max-width: 1024px) {
+  .screen-main { width: 95%; }
+  .hero-title { font-size: 2.4rem; }
+  .hero-visual { max-width: 170px; }
+  .hero-sub { font-size: 1rem; }
+  .cat-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .history-body { gap: 20px; }
+  .contact-info { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ----- Tablet / small screens (≤768px) ----- */
+@media (max-width: 768px) {
+  .screen-main { width: 100%; max-width: 100%; padding: 0 12px; }
+  .nav-inner { padding: 0 12px; }
+  .nav-tabs { display: none; }
+  .hamburger { display: flex; }
+  .main-area { padding: 0 0 72px; }
+  .hero-card { border-radius: var(--shape-lg); }
+  .hero-card-inner { flex-direction: column; text-align: center; gap: 24px; padding: 32px 24px; }
+  .hero-visual { max-width: 120px; }
+  .hero-text { text-align: center; max-width: 100%; }
+  .hero-title { font-size: 2.2rem; }
+  .hero-sub { font-size: 0.95rem; margin-bottom: 16px; }
+  .hero-pills { justify-content: center; }
+  .hero-actions { justify-content: center; }
+  .hero-actions .btn { padding: 10px 18px; font-size: 0.88rem; }
+  .resume-banner { flex-wrap: wrap; justify-content: center; text-align: center; }
+  .quiz-wrapper { border-radius: var(--shape-lg); }
+  .quiz-bar { flex-direction: column; gap: 8px; padding: 10px 12px; }
+  .quiz-bar-left { width: 100%; flex-wrap: wrap; gap: 8px; }
+  .quiz-bar-right { width: 100%; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+  .quiz-stage { padding: 20px 16px 16px; }
+  .q-text { font-size: 1.05rem; margin-bottom: 16px; padding-bottom: 14px; }
+  .q-options { gap: 8px; }
+  .option-btn { padding: 12px 14px; font-size: 0.88rem; }
+  .q-footer { flex-direction: column; gap: 12px; }
+  .q-nav { width: 100%; }
+  .q-nav .btn { flex: 1; }
+  .history-body { grid-template-columns: 1fr; gap: 16px; }
+  .history-primary, .history-secondary { padding: 14px; }
+  .stat-row { gap: 6px; }
+  .stat-card { padding: 10px; }
+  .stat-value { font-size: 1.1rem; }
+  .results-hero { padding: 24px 16px; }
+  .results-trophy { max-width: 100px; }
+  .results-title { font-size: 1.5rem; }
+  .results-actions { flex-direction: column; }
+  .results-actions .btn { width: 100%; }
+  .analysis-answer { max-width: 100px; }
+  .source-card { padding: 28px 16px; margin: 40px 12px; }
+  .page-card-header { padding: 24px 20px 12px; }
+  .page-card-header h2 { font-size: 1.3rem; }
+  .page-card-body { padding: 0 20px 20px; }
+  .contact-page-body { padding: 0 20px 20px; }
+  .hero-pill-empty { font-size: 0.75rem; padding: 5px 12px; }
+  .q-dots { gap: 4px; }
+  .page-dot { width: 28px; height: 28px; font-size: 0.7rem; }
+  .diff-picker-card { padding: 24px 20px; }
+  .resume-banner { flex-wrap: wrap; justify-content: center; text-align: center; }
+  .site-footer { padding: 6px 16px; gap: 8px; }
+  .site-footer p { font-size: 0.68rem; }
+  .footer-tagline { display: none; }
+  .keyboard-hint span { display: none; }
+  .footer-copy { font-size: 0.62rem; }
+}
+
+/* ----- Phone (≤550px) ----- */
+@media (max-width: 550px) {
+  .screen-main { padding: 0 8px; }
+  .nav-inner { padding: 0 10px; }
+  .nav-brand span { display: none; }
+  .nav-brand img { width: 24px; height: 24px; }
+  .hero-visual { max-width: 90px; }
+  .hero-card-inner { gap: 16px; padding: 24px 16px; }
+  .hero-title { font-size: 1.7rem; }
+  .hero-sub { font-size: 0.85rem; margin-bottom: 14px; }
+  .hero-pills { gap: 6px; }
+  .hero-pill { font-size: 0.7rem; padding: 4px 10px; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .hero-actions .btn-outline { order: 2; }
+  .q-counter { font-size: 0.72rem; }
+  .q-text { font-size: 0.95rem; }
+  .option-btn { padding: 10px 12px; font-size: 0.82rem; }
+  .progress-track { min-width: 40px; }
+  .q-score { font-size: 0.75rem; }
+  .q-timer { font-size: 0.75rem; }
+  .radial-timer { width: 30px; height: 30px; }
+  .radial-timer svg { width: 26px; height: 26px; }
+  .rt-time { font-size: 0.5rem; }
+  .q-streak { font-size: 0.72rem; gap: 2px; }
+  .q-streak svg { width: 12px; height: 12px; }
+  .quiz-bar-right .btn-text { padding: 4px 8px; }
+  .diff-badge { font-size: 0.65rem; padding: 1px 8px; }
+  .results-score-ring { width: 100px; height: 100px; }
+  .results-score-ring::before { width: 80px; height: 80px; }
+  .results-score-val { font-size: 1.2rem; }
+  .results-title { font-size: 1.2rem; }
+  .results-msg { font-size: 0.9rem; }
+  .results-analysis { padding: 16px; }
+  .analysis-row { flex-wrap: wrap; font-size: 0.78rem; gap: 6px; }
+  .analysis-answer { max-width: 100%; text-align: left; }
+  .analysis-question { font-size: 0.82rem; }
+  .detail-q-opts { font-size: 0.78rem; }
+  .detail-row { padding: 8px; }
+  .detail-card { padding: 16px; }
+  .detail-score-bar { flex-direction: column; gap: 4px; padding: 12px; }
+  .history-cat { display: none; }
+  .history-diff { display: none; }
+  .history-source { width: 36px; font-size: 0.65rem; }
+  .history-row { font-size: 0.78rem; padding: 6px 8px; }
+  .cat-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 6px; }
+  .cat-card { padding: 12px 6px; gap: 4px; }
+  .cat-icon { font-size: 1.3rem; }
+  .cat-name { font-size: 0.78rem; }
+  .cat-count { font-size: 0.68rem; }
+  .page-card-header h2 { font-size: 1.1rem; }
+  .diff-picker-card { padding: 20px 16px; }
+  .diff-picker-card h3 { font-size: 1.1rem; }
+  .diff-btn { padding: 10px 14px; }
+  .hero-pill-empty { font-size: 0.7rem; padding: 4px 10px; }
+  .q-nav .btn { font-size: 0.82rem; padding: 8px 14px; }
+  .page-dot { width: 24px; height: 24px; font-size: 0.65rem; }
+  .q-dots { gap: 3px; }
+  .btn { padding: 10px 18px; font-size: 0.85rem; }
+  .btn-sm { padding: 6px 12px; font-size: 0.78rem; }
+  .site-footer { padding: 4px 10px; gap: 6px; }
+  .footer-icon-link { width: 24px; height: 24px; }
+  .footer-top-btn { width: 24px; height: 24px; }
+  .footer-copy { font-size: 0.58rem; }
+  .setting-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .setting-row select { width: 100%; min-width: 0; }
+  .comparison-grid { gap: 8px; }
+  .comparison-val { font-size: 1.1rem; }
+  .contact-info { grid-template-columns: 1fr; }
+  .toast { min-width: 0; width: 90vw; }
+}
+
+/* ----- Ultra-wide desktop (≥1400px) ----- */
+@media (min-width: 1400px) {
+  .screen-main { width: 85%; max-width: 1400px; }
+  .nav-inner { max-width: 1400px; }
+  .hero-card-inner { gap: 64px; padding: 64px 56px; }
+  .hero-visual { max-width: 220px; }
+  .hero-title { font-size: 3.8rem; }
+  .hero-sub { font-size: 1.3rem; }
+  .hero-pills { gap: 12px; margin-bottom: 24px; }
+  .hero-pill { font-size: 0.88rem; padding: 6px 16px; }
+  .hero-actions { gap: 16px; }
+  .hero-actions .btn { padding: 16px 32px; font-size: 1.05rem; }
+  .quiz-wrapper { border-radius: var(--shape-xl); }
+  .quiz-stage { padding: 40px 32px 28px; }
+  .q-text { font-size: 1.5rem; }
+  .option-btn { padding: 18px 24px; font-size: 1rem; }
+  .cat-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .cat-card { padding: 28px 16px; }
+  .cat-icon { font-size: 2.4rem; }
+  .history-body { gap: 32px; }
+  .history-primary, .history-secondary { padding: 28px; }
+  .hero-pill-empty { font-size: 0.9rem; padding: 8px 20px; }
+  .results-hero { padding: 56px 32px; }
+  .results-trophy { max-width: 180px; }
+  .results-title { font-size: 2.5rem; }
+  .page-card-header { padding: 48px 40px 24px; }
+  .page-card-body { padding: 0 40px 40px; }
+  .contact-info { grid-template-columns: repeat(3, 1fr); }
+  .detail-list { gap: 14px; }
+  .q-dots { gap: 8px; }
+  .page-dot { width: 36px; height: 36px; font-size: 0.82rem; }
+}
