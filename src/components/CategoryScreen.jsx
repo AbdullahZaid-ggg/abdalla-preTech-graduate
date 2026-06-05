@@ -40,11 +40,11 @@ export default function CategoryScreen() {
         <div className="page-card-body">
           <div className="cat-grid">
             {CATEGORIES.map(c => (
-              <button key={c.id} className="cat-card" onClick={() => startCategoryQuiz(c.id)} style={{ '--cat-color': c.color }}
-                dangerouslySetInnerHTML={{
-                  __html: `<span class="cat-icon">${c.icon}</span><span class="cat-name">${c.id}</span><span class="cat-count">${getCategoryCount(c.id)} questions</span>`
-                }}
-              />
+              <button key={c.id} className="cat-card" onClick={() => startCategoryQuiz(c.id)} style={{ '--cat-color': c.color }}>
+                <span className="cat-icon" dangerouslySetInnerHTML={{ __html: c.icon }} />
+                <span className="cat-name">{c.id}</span>
+                <span className="cat-count">{getCategoryCount(c.id)} questions</span>
+              </button>
             ))}
             <button className="cat-card cat-all" onClick={() => startCategoryQuiz('All')} style={{ '--cat-color': 'var(--md-primary)' }}>
               <span className="cat-icon"><svg viewBox="0 0 20 20" width="20" height="20"><path d="M2 3h7v7H2zm0 9h7v5H2zm9-9h7v7h-7zm0 9h7v5h-7z" fill="currentColor"/></svg></span>

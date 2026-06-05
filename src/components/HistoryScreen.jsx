@@ -60,7 +60,7 @@ export default function HistoryScreen() {
           <p>Every attempt, every improvement</p>
         </div>
         <div className="page-card-body">
-          <div className="history-filters" style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+          <div className="history-filters">
             <input
               type="text"
               className="history-search-input"
@@ -68,22 +68,12 @@ export default function HistoryScreen() {
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               aria-label="Search quiz history"
-              style={{
-                flex: 1, minWidth: 160, padding: '8px 12px', borderRadius: 'var(--shape-sm)',
-                border: '1px solid var(--md-outline-variant)', background: 'var(--md-surface-variant)',
-                color: 'var(--md-on-surface)', fontSize: '0.85rem'
-              }}
             />
             <select
               className="history-cat-filter"
               value={filterCategory}
               onChange={e => setFilterCategory(e.target.value)}
               aria-label="Filter by category"
-              style={{
-                padding: '8px 12px', borderRadius: 'var(--shape-sm)',
-                border: '1px solid var(--md-outline-variant)', background: 'var(--md-surface-variant)',
-                color: 'var(--md-on-surface)', fontSize: '0.85rem'
-              }}
             >
               <option value="All">All Categories</option>
               {categories.map(c => <option key={c} value={c}>{c}</option>)}

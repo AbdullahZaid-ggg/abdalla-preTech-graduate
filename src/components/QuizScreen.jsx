@@ -17,6 +17,8 @@ export default function QuizScreen() {
   const idx = state.currentQuestionIndex
   const answered = state.userAnswers[idx]
   const timeUp = useRef(false)
+  const answeredCount = state.userAnswers.filter(a => a !== -1).length
+  const [timerFlip, setTimerFlip] = useState(false)
 
   useEffect(() => {
     timeUp.current = false
@@ -25,10 +27,18 @@ export default function QuizScreen() {
   useEffect(() => {
     if (state.practiceMode) return
     const timer = setInterval(() => {
+      setTimerFlip(true)
       dispatch({ type: 'TICK_TIMER' })
     }, 1000)
     return () => clearInterval(timer)
   }, [state.practiceMode])
+
+  useEffect(() => {
+    if (timerFlip) {
+      const t = setTimeout(() => setTimerFlip(false), 150)
+      return () => clearTimeout(t)
+    }
+  }, [timerFlip])
 
   useEffect(() => {
     if (state.timerRemaining <= 0 && !timeUp.current) {
@@ -127,6 +137,13 @@ export default function QuizScreen() {
     if (questionRef.current) questionRef.current.focus()
   }, [idx])
 
+  useEffect(() => {
+    if (answered !== -1) {
+      const nextBtn = document.getElementById('next-btn')
+      if (nextBtn && !nextBtn.disabled) setTimeout(() => nextBtn.focus(), 100)
+    }
+  }, [answered])
+
   function animateTransition(dir) {
     if (animState.active) return
     setAnimState({ active: 'exit', dir })
@@ -155,7 +172,7 @@ export default function QuizScreen() {
             {q.difficulty && (
               <span className={`diff-badge ${q.difficulty}`} dangerouslySetInnerHTML={{ __html: `${diffIcons[q.difficulty] || ''} ${q.difficulty}` }} />
             )}
-            <div className="progress-track"><div className="progress-fill" style={{ width: `${(idx / total) * 100}%` }} /></div>
+            <div className="progress-track" title={`${answeredCount} of ${total} answered`}><div className="progress-fill" style={{ width: `${(answeredCount / total) * 100}%` }} /></div>
           </div>
           <div className="quiz-bar-right">
             {state.practiceMode ? (
@@ -176,7 +193,7 @@ export default function QuizScreen() {
                     style={{ transition: 'stroke-dashoffset 1s linear, stroke 0.3s' }}
                   />
                 </svg>
-                <span className="rt-time">{state.timerRemaining}s</span>
+                <span className={`rt-time${timerFlip ? ' flip' : ''}`}>{state.timerRemaining}s</span>
               </div>
             )}
             {state.streak >= 2 && (

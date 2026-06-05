@@ -9,6 +9,7 @@ import ResultsScreen from './components/ResultsScreen'
 import HistoryScreen from './components/HistoryScreen'
 import AboutScreen from './components/AboutScreen'
 import ContactScreen from './components/ContactScreen'
+import NotFoundScreen from './components/NotFoundScreen'
 import ToastContainer from './components/ToastContainer'
 import { playClick } from './utils/sound'
 
@@ -32,6 +33,7 @@ export default function App() {
   useEffect(() => {
     if (currentRoute !== prevRoute.current) {
       prevRoute.current = currentRoute
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }, [currentRoute])
 
@@ -95,6 +97,7 @@ export default function App() {
           <Route path="/history" element={<HistoryScreen />} />
           <Route path="/about" element={<AboutScreen />} />
           <Route path="/contact" element={<ContactScreen />} />
+          <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </main>
       <footer className="site-footer">
