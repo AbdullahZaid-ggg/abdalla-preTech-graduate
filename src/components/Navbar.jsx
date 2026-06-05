@@ -19,9 +19,7 @@ export default function Navbar() {
   }
 
   function toggleTheme() {
-    const next = state.theme === 'dark' ? 'light' : 'dark'
-    dispatch({ type: 'SET_THEME', payload: next })
-    localStorage.setItem('quizTheme', next)
+    dispatch({ type: 'SET_THEME' })
   }
 
   return (

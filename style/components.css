@@ -801,14 +801,6 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-[data-theme="light"] .theme-toggle {
-  background: rgba(0, 0, 0, 0.04);
-}
-
-[data-theme="light"] .theme-toggle:hover {
-  background: rgba(0, 0, 0, 0.08);
-}
-
 /* ========== API SETTINGS ========== */
 
 .api-settings {
@@ -968,10 +960,6 @@
   color: rgba(255, 255, 255, 0.2);
   font-size: 0.7rem;
   margin-top: 2px;
-}
-
-[data-theme="light"] .keyboard-hint {
-  color: rgba(0, 0, 0, 0.25);
 }
 
 /* ========== CONFETTI ========== */
@@ -1265,10 +1253,6 @@
   height: 28px;
   object-fit: contain;
   filter: invert(1);
-}
-
-[data-theme="light"] .contact-icon img {
-  filter: none;
 }
 
 .contact-item strong {

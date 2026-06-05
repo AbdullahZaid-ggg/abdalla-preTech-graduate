@@ -16,7 +16,7 @@ const initialState = {
   timerInterval: null,
   localCategory: 'All',
   localDifficulty: 'all',
-  theme: localStorage.getItem(CONFIG.THEME_KEY) || 'dark',
+  theme: 'dark',
 }
 
 function reducer(state, action) {
@@ -100,7 +100,7 @@ function reducer(state, action) {
       return { ...state, timerRemaining: CONFIG.TIMER_DURATION }
 
     case 'SET_THEME':
-      return { ...state, theme: action.payload }
+      return { ...state, theme: 'dark' }
 
     default:
       return state
